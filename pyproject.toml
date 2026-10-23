@@ -7,7 +7,10 @@ authors = [
     { name = "kshku", email = "1211shree@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pymupdf>=2.0",
+    "rdflib>=7.6.0",
+]
 
 [project.scripts]
 knowledgegraphs2023-openhpi = "knowledgegraphs2023_openhpi:main"
