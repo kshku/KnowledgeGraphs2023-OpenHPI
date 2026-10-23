@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:legal="https://example.org/legal-ontology#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section26">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accounts and audit</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section10">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Establishment of Central Consumer Protection Authority</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section1">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Short title, extent, commencement and application</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#ConsumerProtectionAct2019">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Act"/>
+    <legal:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Consumer Protection Act, 2019</legal:title>
+    <legal:sourceURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://indiacode.gov.in/pdf-viewer/1b6c1754-47b1-411e-9607-1712a9caf368/b5ba879f-4662-458c-b5d3-dae377ff92e0</legal:sourceURL>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section1"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section2"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section3"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section4"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section5"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section6"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section7"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section8"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section9"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section10"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section11"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section12"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section13"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section14"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section15"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section16"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section17"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section18"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section19"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section20"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section21"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section22"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section23"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section24"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section25"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section26"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section27"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section28"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section29"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section30"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section31"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section32"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section33"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section34"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section35"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section36"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section37"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section38"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section39"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section40"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section41"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section42"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section43"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section44"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section45"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section46"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section47"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section48"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section49"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section50"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section51"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section52"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section53"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section54"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section55"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section56"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section57"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section58"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section59"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section60"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section61"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section62"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section63"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section64"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section65"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section66"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section67"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section68"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section69"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section70"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section71"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section72"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section73"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section74"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section75"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section76"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section77"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section78"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section79"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section80"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section81"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section82"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section83"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section84"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section85"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section86"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section87"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section88"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section89"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section90"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section91"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section92"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section93"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section94"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section95"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section96"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section97"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section98"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section99"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section100"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section101"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section102"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section103"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section104"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section105"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section106"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#CPA2019_Section107"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section13">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appointment of officers, experts, professionals and other employees of Central</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section59">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Procedure applicable to National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section9">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Objects of District Council</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section107">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">107</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Repeal and savings</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section77">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Duty of mediator to disclose certain facts</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section41">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appeal against order of District Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section19">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of Central Authority to refer matter for investigation or to other Regulator</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section7">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Objects of State Council</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section14">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Procedure of Central Authority</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section34">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jurisdiction of District Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section61">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">61</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power to set aside ex parte orders</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section96">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compounding of offences</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology/data/consumer-protection-2019">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <owl:imports rdf:resource="https://example.org/legal-ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section25">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Grants by Central Government</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section33">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Officers and other employees of District Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section3">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Central Consumer Protection Council</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section54">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Composition of National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section50">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review by State Commission in certain cases</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section65">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Service of notice, etc</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section103">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">103</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of National Commission to make regulations</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section36">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">36</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Proceedings before District Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section72">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Penalty for non-compliance of order</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section92">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cognizance of offence by court</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section12">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vacancy, etc., not to invalidate proceedings of Central Authority</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section71">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Enforcement of orders of District Commission, State Commission and National</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section40">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review by District Commission in certain cases</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section18">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Powers and functions of Central Authority</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section48">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transfer of cases</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section62">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transfer of cases</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section91">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">91</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Punishment for manufacturing for sale or for storing or selling or distributing or importing</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section89">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Punishment for false or misleading advertisement</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section99">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power to give directions by Central Government</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section63">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vacancy in office of President of National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section55">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Qualifications, etc., of President and members of National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section83">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">83</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Product liability action</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section79">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Procedure for mediation</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section82">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Application of Chapter</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section51">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appeal to National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section60">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">60</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review by National Commission in certain cases</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section2">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definitions</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section74">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Establishment of consumer mediation cell</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section57">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other officers and employees of National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section75">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Empanelment of mediators</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section5">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Objects of Central Council</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section101">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">101</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of Central Government to make rules</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section68">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">68</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Finality of orders</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section100">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">100</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Act not in derogation of any other law</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section30">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Salaries, allowances and other terms and conditions of service of President and members of</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section20">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of Central Authority to recall goods, etc</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section94">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Measures to prevent unfair trade practices in e-commerce, direct selling, etc</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section35">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manner in which complaint shall be made</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section43">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Qualifications, etc., of President and members of State Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section15">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Investigation Wing</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section85">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Liability of product service provider</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section90">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">90</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Punishment for manufacturing for sale or storing, selling or distributing or importing</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section28">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">28</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Establishment of District Consumer Disputes Redressal Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section53">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Establishment of National Consumer Disputes Redressal Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section46">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Officers and employees of State Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section58">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jurisdiction of National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section80">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Settlement through mediation</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section93">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vexatious search</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section42">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">42</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Establishment of State Consumer Disputes Redressal Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section78">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Replacement of mediator in certain cases</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section8">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">District Consumer Protection Council</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section105">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">105</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rules and regulations to be laid before each House of Parliament</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section21">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of Central Authority to issue directions and penalties against false or misleading</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section86">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">86</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Liability of product sellers</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section88">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Penalty for non-compliance of direction of Central Authority</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section102">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">102</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of State Government to make rules</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section29">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">29</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Qualifications, etc., of President and members of District Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section44">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Salaries, allowances and other terms and conditions of service of President and members of</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section73">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appeal against order passed under section 72</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section11">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Qualifications, method of recruitment, etc., of Chief Commissioner and Commissioners</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section37">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">37</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Reference to mediation</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section52">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hearing of appeal</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section69">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Limitation period</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section39">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Findings of District Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section31">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">31</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transitional provision</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section27">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Furnishing of annual reports, etc</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section81">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Recording settlement and passing of order</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section67">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appeal against order of National Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section47">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jurisdiction of State Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section64">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vacancies or defects in appointment not to invalidate orders</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section23">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">23</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Designation of any statutory authority or body to function as Central Authority</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section97">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manner of crediting penalty</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section45">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transitional provision</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section76">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nomination of mediators from panel</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section98">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Protection of action taken in good faith</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section66">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Experts to assist National Commission or State Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section4">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Procedure for meetings of Central Council</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section87">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Exceptions to product liability action</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section84">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">84</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Liability of product manufacturer</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section106">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">106</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power to Remove Difficulties</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section32">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vacancy in office of member of District Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section17">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Complaints to authorities</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section16">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of District Collector</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section49">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Procedure applicable to State Commission</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section38">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Procedure on admission of complaint</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section22">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Search and seizure</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section6">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">State Consumer Protection Councils</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section24">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">24</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appeal</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section95">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Presidents, members, Chief Commissioner, Commissioner and certain officers to be public</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section104">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">104</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of Central Authority to make regulations</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section70">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Administrative control</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#CPA2019_Section56">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transitional provision</legal:sectionTitle>
+  </rdf:Description>
+</rdf:RDF>
