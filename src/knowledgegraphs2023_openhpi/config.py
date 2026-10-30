@@ -9,11 +9,11 @@ PARSED_DIR = DATA_DIR / "parsed"
 
 ONTOLOGY_DIR = PROJECT_ROOT / "ontology"
 GENERATED_DIR = ONTOLOGY_DIR / "generated"
-GENERATED_ONTOLOGY_PATH = GENERATED_DIR / "consumer-protection-individuals.rdf"
+GENERATED_ONTOLOGY_PATH = GENERATED_DIR / "legal-documents.rdf"
 ONTOLOGY_SCHEMA_PATH = ONTOLOGY_DIR / "legal-ontology.rdf"
 
 ONTOLOGY_IRI = "https://example.org/legal-ontology"
-DATA_ONTOLOGY_IRI = f"{ONTOLOGY_IRI}/data/consumer-protection-2019"
+DATA_ONTOLOGY_IRI = f"{ONTOLOGY_IRI}/data/legal-documents"
 
 ACT_TITLE = "The Consumer Protection Act, 2019"
 ACT_SOURCE_URL = (
