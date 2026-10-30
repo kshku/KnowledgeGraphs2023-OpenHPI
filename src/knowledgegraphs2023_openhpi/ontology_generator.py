@@ -9,6 +9,38 @@ from .references import extract_references, resolution_status
 LEGAL = Namespace(f"{config.ONTOLOGY_IRI}#")
 
 
+class SortedGraph(Graph):
+    """Graph whose serialization order does not depend on hash order."""
+
+    def subjects(self, predicate=None, object=None):
+        return iter(
+            sorted(
+                super().subjects(predicate, object), key=str
+            )
+        )
+
+    def predicate_objects(self, subject=None, predicate=None):
+        return iter(
+            sorted(
+                super().predicate_objects(subject, predicate),
+                key=lambda item: (str(item[0]), str(item[1])),
+            )
+        )
+
+
+def sorted_graph(graph: Graph) -> Graph:
+    """Return a copy with a stable triple order for reproducible output."""
+    ordered = SortedGraph()
+
+    for prefix, namespace in graph.namespaces():
+        ordered.bind(prefix, namespace)
+
+    for triple in graph:
+        ordered.add(triple)
+
+    return ordered
+
+
 def generate_ontology(sections: list[dict]) -> Graph:
     """Generate individuals for the Act, provisions, passages and references."""
 
@@ -148,7 +180,7 @@ def generate_ontology(sections: list[dict]) -> Graph:
             f"Missing: {missing}; unexpected: {unexpected}"
         )
 
-    return graph
+    return sorted_graph(graph)
 
 
 def main() -> None:
