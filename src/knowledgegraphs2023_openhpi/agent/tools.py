@@ -16,32 +16,50 @@ def build_tools(kg: KnowledgeGraph, graph) -> list:
         return kg.get_schema()
 
     @tool
-    def kg_list_sections() -> list[dict]:
-        """List every section number and title in the Act."""
-        return kg.list_sections()
+    def kg_list_documents() -> list[dict]:
+        """List loaded Acts with their document IDs, titles, source URLs,
+        and section counts. Use a returned document ID for section tools."""
+        return kg.list_documents()
 
     @tool
-    def kg_get_section(section_number: int) -> dict | None:
-        """Return a section's title, full text, page, outbound references
-        and the sections that reference it. Returns null if it does not exist."""
-        return kg.get_section(section_number)
+    def kg_list_sections(document_id: str | None = None) -> list[dict]:
+        """List section IDs and titles for one Act, or all loaded Acts if no
+        document ID is supplied. Results identify the source Act."""
+        return kg.list_sections(document_id)
 
     @tool
-    def kg_find_sections(query: str) -> list[dict]:
+    def kg_get_section(
+        section_id: str, document_id: str | None = None
+    ) -> dict | None:
+        """Return a section's Act identity, title, full text, page, and
+        references. Section IDs may be alphanumeric, such as `2A` or `53-O`.
+        Supply a document ID when more than one Act is loaded."""
+        return kg.get_section(section_id, document_id)
+
+    @tool
+    def kg_find_sections(
+        query: str, document_id: str | None = None
+    ) -> list[dict]:
         """Find sections whose title or text contains the query string
-        (case-insensitive). Returns number, title and a short snippet."""
-        return kg.find_sections(query)
+        (case-insensitive). Search all Acts or filter by document ID."""
+        return kg.find_sections(query, document_id)
 
     @tool
-    def kg_get_references(section_number: int) -> list[dict]:
+    def kg_get_references(
+        section_id: str, document_id: str | None = None
+    ) -> list[dict]:
         """List the references made by a section, with resolution status,
-        target section, or external law if any."""
-        return kg.get_references(section_number)
+        target section ID, or external law if any. Supply the document ID
+        when more than one Act is loaded."""
+        return kg.get_references(section_id, document_id)
 
     @tool
-    def kg_get_referenced_by(section_number: int) -> list[int]:
-        """List the section numbers that reference the given section."""
-        return kg.get_referenced_by(section_number)
+    def kg_get_referenced_by(
+        section_id: str, document_id: str | None = None
+    ) -> list[str]:
+        """List section IDs in the same Act that reference this section.
+        Supply the document ID when more than one Act is loaded."""
+        return kg.get_referenced_by(section_id, document_id)
 
     @tool
     def kg_sparql(query: str) -> dict:
@@ -51,6 +69,7 @@ def build_tools(kg: KnowledgeGraph, graph) -> list:
 
     return [
         kg_get_schema,
+        kg_list_documents,
         kg_list_sections,
         kg_get_section,
         kg_find_sections,
