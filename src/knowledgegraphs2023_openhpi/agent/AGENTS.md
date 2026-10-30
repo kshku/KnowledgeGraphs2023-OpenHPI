@@ -20,8 +20,8 @@ read-only knowledge graph and the tools provided to you.
 6. The graph is read-only. Never attempt to modify it, and never use SPARQL
    update keywords.
 7. Before using `kg_sparql`, call `kg_get_schema` to learn the class and
-   property names. Use the returned `legal` prefix and full IRIs from the
-   schema; do not guess property names.
+   property names. Use the returned `legal` prefix with the returned class
+   and property names; do not guess names or construct IRIs another way.
 
 ## Answer style
 

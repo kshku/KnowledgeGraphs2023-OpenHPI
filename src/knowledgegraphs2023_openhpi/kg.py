@@ -31,12 +31,24 @@ class KnowledgeGraph:
         self.graph.parse(str(path), format="xml")
 
         self.schema = Graph()
+        self.schema_loaded = False
 
-        if schema_path is not None:
+        schema_path = schema_path or config.ONTOLOGY_SCHEMA_PATH
+
+        if Path(schema_path).is_file():
             self.schema.parse(str(schema_path), format="xml")
+            self.schema_loaded = True
 
     def _provision(self, number: int) -> URIRef:
         return LEGAL[f"CPA2019_Section{number}"]
+
+    def _namespace(self) -> str:
+        for term in self.schema.subjects(RDF.type, OWL.Class):
+            text = str(term)
+            separator = "#" if "#" in text else "/"
+            return text.rsplit(separator, 1)[0] + separator
+
+        return f"{config.ONTOLOGY_IRI}#"
 
     def get_schema(self) -> dict:
         """Describe the ontology and the size of the instance graph."""
@@ -59,6 +71,35 @@ class KnowledgeGraph:
 
             return sorted(items, key=lambda item: item["name"])
 
+        subclasses = [
+            {
+                "class": _local_name(child),
+                "subclass_of": _local_name(parent),
+            }
+            for child in self.schema.subjects(
+                RDF.type, OWL.Class
+            )
+            for parent in self.schema.objects(child, RDFS.subClassOf)
+            if isinstance(child, URIRef) and isinstance(parent, URIRef)
+        ]
+
+        subproperties = [
+            {
+                "property": _local_name(prop),
+                "subproperty_of": _local_name(parent),
+            }
+            for prop in set(
+                self.schema.subjects(RDF.type, OWL.ObjectProperty)
+            )
+            | set(
+                self.schema.subjects(RDF.type, OWL.DatatypeProperty)
+            )
+            for parent in self.schema.objects(prop, RDFS.subPropertyOf)
+            if isinstance(parent, URIRef)
+            and _local_name(parent)
+            not in {"topObjectProperty", "topDataProperty"}
+        ]
+
         counts = {
             "provisions": len(
                 set(self.graph.subjects(RDF.type, LEGAL.Provision))
@@ -76,13 +117,30 @@ class KnowledgeGraph:
         }
 
         return {
-            "prefixes": {"legal": f"{config.ONTOLOGY_IRI}#"},
+            "schema_loaded": self.schema_loaded,
+            "prefixes": {"legal": self._namespace()},
             "classes": sorted(
                 _local_name(term)
                 for term in self.schema.subjects(RDF.type, OWL.Class)
             ),
             "object_properties": properties(OWL.ObjectProperty),
             "datatype_properties": properties(OWL.DatatypeProperty),
+            "hierarchy": {
+                "subclasses": sorted(
+                    subclasses,
+                    key=lambda item: (
+                        item["class"],
+                        item["subclass_of"],
+                    ),
+                ),
+                "subproperties": sorted(
+                    subproperties,
+                    key=lambda item: (
+                        item["property"],
+                        item["subproperty_of"],
+                    ),
+                ),
+            },
             "counts": counts,
         }
 

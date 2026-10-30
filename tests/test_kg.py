@@ -1,3 +1,6 @@
+from knowledgegraphs2023_openhpi.kg import KnowledgeGraph
+
+
 def test_list_sections(kg):
     assert kg.list_sections() == [
         {"number": 1, "title": "Short title"},
@@ -27,6 +30,7 @@ def test_references(kg):
 def test_get_schema(kg):
     schema = kg.get_schema()
 
+    assert schema["schema_loaded"] is True
     assert schema["prefixes"]["legal"] == "https://example.org/legal-ontology#"
     assert "Provision" in schema["classes"]
     assert {
@@ -44,6 +48,22 @@ def test_get_schema(kg):
         "text_passages": 2,
         "reference_mentions": 1,
     }
+
+
+def test_missing_schema_is_reported(monkeypatch, tmp_path, kg):
+    monkeypatch.setattr(
+        "knowledgegraphs2023_openhpi.kg.config.ONTOLOGY_SCHEMA_PATH",
+        tmp_path / "missing.rdf",
+    )
+
+    path = tmp_path / "kg.rdf"
+    kg.graph.serialize(destination=path, format="xml")
+
+    schema = KnowledgeGraph(path).get_schema()
+
+    assert schema["schema_loaded"] is False
+    assert schema["classes"] == []
+    assert schema["counts"]["provisions"] == 2
 
 
 def test_find_sections(kg):

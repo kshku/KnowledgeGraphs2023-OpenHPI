@@ -27,10 +27,11 @@ uv run python -m knowledgegraphs2023_openhpi find "refund"
 ## Agent
 
 The agent (`src/knowledgegraphs2023_openhpi/agent/`) uses LangChain tools over
-the knowledge graph. It has typed traversal tools (`kg_list_sections`,
-`kg_get_section`, `kg_find_sections`, `kg_get_references`,
-`kg_get_referenced_by`) and a read-only `kg_sparql` tool. Answers are grounded
-in tool results and cite section numbers.
+the knowledge graph. It has typed traversal tools (`kg_get_schema`,
+`kg_list_sections`, `kg_get_section`, `kg_find_sections`,
+`kg_get_references`, `kg_get_referenced_by`) and a read-only `kg_sparql` tool.
+It calls `kg_get_schema` first so it knows the ontology before writing SPARQL.
+Answers are grounded in tool results and cite section numbers.
 
 Set up the model in `.env` (see `.env.example`), then run:
 
