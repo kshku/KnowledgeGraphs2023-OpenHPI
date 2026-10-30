@@ -4,16 +4,17 @@ from typing import Iterator
 
 
 EXTERNAL_LAW_PATTERN = re.compile(
-    r"^\s*(?:of|under|within the meaning of|as provided by)\s+"
+    r"(?:of|under|within\s+the\s+meaning\s+of|as\s+provided\s+by)\s+"
     r"(?:the\s+)?"
-    r"(?:First Schedule\s+to\s+)?"
-    r"(?P<law>Indian Penal Code"
-    r"|Finance Act(?:\s*,?\s*\d{4})?"
-    r"|Food Safety and Standards Act(?:\s*,?\s*\d{4})?"
-    r"|Code of Criminal Procedure"
-    r"|Code of Civil Procedure"
-    r"|Information Technology Act(?:\s*,?\s*\d{4})?"
-    r"|Companies Act(?:\s*,?\s*\d{4})?)\b",
+    r"(?:First\s+Schedule\s+to\s+)?"
+    r"(?P<law>Indian\s+Penal\s+Code"
+    r"|General\s+Clauses\s+Act(?:\s*,?\s*\d{4})?"
+    r"|Finance\s+Act(?:\s*,?\s*\d{4})?"
+    r"|Food\s+Safety\s+and\s+Standards\s+Act(?:\s*,?\s*\d{4})?"
+    r"|Code\s+of\s+Criminal\s+Procedure(?:\s*,?\s*\d{4})?"
+    r"|Code\s+of\s+Civil\s+Procedure(?:\s*,?\s*\d{4})?"
+    r"|Information\s+Technology\s+Act(?:\s*,?\s*\d{4})?"
+    r"|Companies\s+Act(?:\s*,?\s*\d{4})?)\b",
     re.IGNORECASE,
 )
 
@@ -58,12 +59,21 @@ def extract_references(text: str) -> Iterator[Reference]:
     for match in CITATION_PATTERN.finditer(text):
         reference_text = match.group(0)
 
-        # Classify only on the text immediately after the citation so a law
-        # mentioned elsewhere in the section does not affect this reference.
-        following_text = text[match.end() : match.end() + 120]
-        external_match = EXTERNAL_LAW_PATTERN.search(following_text)
+        # Classify only on the text between this citation and the next one,
+        # so a law mentioned for a later reference does not leak backwards.
+        following_text = text[match.end() :]
+        next_citation = CITATION_PATTERN.search(following_text)
+
+        if next_citation is not None:
+            following_text = following_text[: next_citation.start()]
+
+        external_match = EXTERNAL_LAW_PATTERN.search(
+            following_text[:200]
+        )
         external_law = (
-            external_match.group("law") if external_match else None
+            re.sub(r"\s+", " ", external_match.group("law")).strip()
+            if external_match
+            else None
         )
 
         for number in _target_numbers(

@@ -26,6 +26,33 @@ def test_external_law_is_classified():
     assert ref.external_law == "Indian Penal Code"
 
 
+def test_general_clauses_act_is_external():
+    [ref] = list(
+        extract_references("section 6 of the General Clauses Act, 1897")
+    )
+    assert ref.is_external is True
+    assert ref.external_law == "General Clauses Act, 1897"
+
+
+def test_external_law_across_line_break():
+    [ref] = list(
+        extract_references("section 320 of the Indian\nPenal Code")
+    )
+    assert ref.is_external is True
+    assert ref.external_law == "Indian Penal Code"
+
+
+def test_external_law_after_chapter_mention():
+    [ref] = list(
+        extract_references(
+            "section 195 and Chapter XXVI of the Code of Criminal "
+            "Procedure"
+        )
+    )
+    assert ref.is_external is True
+    assert ref.external_law == "Code of Criminal Procedure"
+
+
 def test_resolution_status():
     assert resolution_status(Reference("section 2", 2, False, None)) == "resolved"
     assert resolution_status(Reference("section 200", 200, False, None)) == "unresolved"
