@@ -1,4 +1,5 @@
 import argparse
+import asyncio
 import json
 from pathlib import Path
 
@@ -127,10 +128,9 @@ def command_ask(question: str) -> None:
     print(result["messages"][-1].content)
 
 
-def command_chat() -> None:
+async def _chat(kg: KnowledgeGraph) -> None:
     from .agent import build_agent
 
-    kg = _load_kg()
     agent = build_agent(kg, kg.graph)
 
     while True:
@@ -148,15 +148,35 @@ def command_chat() -> None:
 
         print()
 
-        for chunk, _metadata in agent.stream(
+        async for event in agent.astream_events(
             {"messages": [{"role": "user", "content": question}]},
-            stream_mode="messages",
+            version="v2",
         ):
-            content = getattr(chunk, "content", "")
-            if content:
-                print(content, end="", flush=True)
+            event_type = event["event"]
+
+            match event_type:
+                case "on_chat_model_stream":
+                    chunk = event["data"]["chunk"]
+                    if chunk.content:
+                        print(chunk.content, end="", flush=True)
+
+                case "on_tool_start":
+                    print(
+                        f"\n[tool] {event['name']} "
+                        f"{event['data'].get('input')}"
+                    )
+
+                case "on_tool_end":
+                    print(f"[tool done] {event['name']}")
+
+                case "on_chain_error":
+                    print(f"\n[error] {event['data']}")
 
         print("\n")
+
+
+def command_chat() -> None:
+    asyncio.run(_chat(_load_kg()))
 
 
 def main() -> None:
