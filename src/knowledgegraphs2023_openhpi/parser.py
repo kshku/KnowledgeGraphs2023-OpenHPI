@@ -1,4 +1,3 @@
-import argparse
 import json
 import re
 from dataclasses import asdict, dataclass
@@ -122,7 +121,7 @@ def parse_sections(records: list[dict]) -> list[LegalSection]:
 
 def parse(input_path: Path, output_path: Path) -> None:
     if not input_path.is_file():
-        parser.error(f"Input file not found: {input_path}")
+        raise FileNotFoundError(f"Input file not found: {input_path}")
 
     with input_path.open(encoding="utf-8") as file:
         records = [json.loads(line) for line in file if line.strip()]
