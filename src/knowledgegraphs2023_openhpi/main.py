@@ -58,7 +58,9 @@ def _load_kg() -> KnowledgeGraph:
             f"{config.GENERATED_ONTOLOGY_PATH}. Run `build` first."
         )
 
-    return KnowledgeGraph(config.GENERATED_ONTOLOGY_PATH)
+    return KnowledgeGraph(
+        config.GENERATED_ONTOLOGY_PATH, config.ONTOLOGY_SCHEMA_PATH
+    )
 
 
 def command_extract(pdf_path: Path) -> None:

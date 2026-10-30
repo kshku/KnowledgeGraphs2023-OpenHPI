@@ -5,6 +5,7 @@ def test_tool_names_and_calls(kg):
     tools = {tool.name: tool for tool in build_tools(kg, kg.graph)}
 
     assert set(tools) == {
+        "kg_get_schema",
         "kg_list_sections",
         "kg_get_section",
         "kg_find_sections",
@@ -13,6 +14,10 @@ def test_tool_names_and_calls(kg):
         "kg_sparql",
     }
 
+    assert (
+        "Provision"
+        in tools["kg_get_schema"].invoke({})["classes"]
+    )
     assert (
         tools["kg_get_section"].invoke({"section_number": 2})["title"]
         == "Definitions"

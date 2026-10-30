@@ -1,6 +1,6 @@
 import pytest
 from rdflib import Graph, Literal, Namespace
-from rdflib.namespace import RDF, XSD
+from rdflib.namespace import OWL, RDF, RDFS, XSD
 
 from knowledgegraphs2023_openhpi.config import ONTOLOGY_IRI
 from knowledgegraphs2023_openhpi.kg import KnowledgeGraph
@@ -58,4 +58,20 @@ def kg(tmp_path):
 
     path = tmp_path / "kg.rdf"
     graph.serialize(destination=path, format="xml")
-    return KnowledgeGraph(path)
+
+    schema = Graph()
+    for class_name in ("Provision", "TextPassage", "ReferenceMention"):
+        schema.add((LEGAL[class_name], RDF.type, OWL.Class))
+
+    schema.add((LEGAL.containsPassage, RDF.type, OWL.ObjectProperty))
+    schema.add((LEGAL.containsPassage, RDFS.domain, LEGAL.Provision))
+    schema.add((LEGAL.containsPassage, RDFS.range, LEGAL.TextPassage))
+
+    schema.add((LEGAL.sectionNumber, RDF.type, OWL.DatatypeProperty))
+    schema.add((LEGAL.sectionNumber, RDFS.domain, LEGAL.Provision))
+    schema.add((LEGAL.sectionNumber, RDFS.range, XSD.string))
+
+    schema_path = tmp_path / "schema.rdf"
+    schema.serialize(destination=schema_path, format="xml")
+
+    return KnowledgeGraph(path, schema_path)

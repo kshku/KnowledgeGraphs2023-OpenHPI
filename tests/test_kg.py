@@ -24,6 +24,28 @@ def test_references(kg):
     assert kg.get_referenced_by(2) == [1]
 
 
+def test_get_schema(kg):
+    schema = kg.get_schema()
+
+    assert schema["prefixes"]["legal"] == "https://example.org/legal-ontology#"
+    assert "Provision" in schema["classes"]
+    assert {
+        "name": "containsPassage",
+        "domain": "Provision",
+        "range": "TextPassage",
+    } in schema["object_properties"]
+    assert {
+        "name": "sectionNumber",
+        "domain": "Provision",
+        "range": "string",
+    } in schema["datatype_properties"]
+    assert schema["counts"] == {
+        "provisions": 2,
+        "text_passages": 2,
+        "reference_mentions": 1,
+    }
+
+
 def test_find_sections(kg):
     assert [s["number"] for s in kg.find_sections("definitions")] == [2]
     assert kg.find_sections("no-such-term") == []

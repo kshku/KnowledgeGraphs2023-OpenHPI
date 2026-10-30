@@ -9,6 +9,13 @@ def build_tools(kg: KnowledgeGraph, graph) -> list:
     """Create the read-only tools the agent can call."""
 
     @tool
+    def kg_get_schema() -> dict:
+        """Describe the ontology: classes, object and datatype properties
+        with their domain and range, the legal prefix, and instance counts.
+        Call this before writing a SPARQL query."""
+        return kg.get_schema()
+
+    @tool
     def kg_list_sections() -> list[dict]:
         """List every section number and title in the Act."""
         return kg.list_sections()
@@ -43,6 +50,7 @@ def build_tools(kg: KnowledgeGraph, graph) -> list:
         return run_query(graph, query, settings.max_sparql_rows)
 
     return [
+        kg_get_schema,
         kg_list_sections,
         kg_get_section,
         kg_find_sections,
