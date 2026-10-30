@@ -15,6 +15,9 @@ FORBIDDEN_KEYWORDS = (
     "MOVE",
     "COPY",
     "WITH",
+    "SERVICE",
+    "FROM",
+    "USING",
 )
 
 

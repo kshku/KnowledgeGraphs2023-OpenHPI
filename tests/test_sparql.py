@@ -22,6 +22,16 @@ def test_rejects_empty():
         validate_read_only("   ")
 
 
+def test_rejects_network_queries():
+    for query in [
+        "SELECT * WHERE { SERVICE <http://example.org/sparql> "
+        "{ ?s ?p ?o } }",
+        "SELECT * FROM <http://example.org/data> WHERE { ?s ?p ?o }",
+    ]:
+        with pytest.raises(ValueError, match="not allowed"):
+            validate_read_only(query)
+
+
 def test_select_runs():
     graph = Graph()
     graph.add((LEGAL.Provision1, LEGAL.sectionNumber, Literal("1")))
