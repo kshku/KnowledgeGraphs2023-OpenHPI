@@ -7,17 +7,23 @@ from knowledgegraphs2023_openhpi.references import (
 
 def test_single_internal_reference():
     [ref] = list(extract_references("as provided under section 10 of this Act"))
-    assert ref == Reference("section 10", 10, False, None)
+    assert ref == Reference("section 10", "10", False, None)
 
 
 def test_list_of_references():
     refs = list(extract_references("sections 2, 3 and 4 shall apply"))
-    assert [r.target for r in refs] == [2, 3, 4]
+    assert [r.target for r in refs] == ["2", "3", "4"]
 
 
 def test_range_is_expanded():
     refs = list(extract_references("sections 2 to 5 shall apply"))
-    assert [r.target for r in refs] == [2, 3, 4, 5]
+    assert [r.target for r in refs] == ["2", "3", "4", "5"]
+
+
+def test_alphanumeric_and_hyphenated_section_ids_are_preserved():
+    refs = list(extract_references("sections 2A, 2B and 53-O shall apply"))
+
+    assert [reference.target for reference in refs] == ["2A", "2B", "53-O"]
 
 
 def test_external_law_is_classified():
@@ -54,9 +60,23 @@ def test_external_law_after_chapter_mention():
 
 
 def test_resolution_status():
-    assert resolution_status(Reference("section 2", 2, False, None)) == "resolved"
-    assert resolution_status(Reference("section 200", 200, False, None)) == "unresolved"
+    section_ids = {"2", "2A", "53-O"}
+    assert resolution_status(
+        Reference("section 2", "2", False, None), section_ids
+    ) == "resolved"
+    assert resolution_status(
+        Reference("section 2A", "2A", False, None), section_ids
+    ) == "resolved"
+    assert resolution_status(
+        Reference("section 53-O", "53-O", False, None), section_ids
+    ) == "resolved"
+    assert resolution_status(
+        Reference("section 200", "200", False, None), section_ids
+    ) == "unresolved"
     assert (
-        resolution_status(Reference("section 10", 10, True, "Indian Penal Code"))
+        resolution_status(
+            Reference("section 10", "10", True, "Indian Penal Code"),
+            section_ids,
+        )
         == "external"
     )

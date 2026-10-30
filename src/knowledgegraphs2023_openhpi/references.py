@@ -1,6 +1,6 @@
 import re
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Collection, Iterator
 
 
 EXTERNAL_LAW_PATTERN = re.compile(
@@ -18,9 +18,10 @@ EXTERNAL_LAW_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+CITATION_ID = r"\d+(?:-?[A-Za-z]+)?"
 CITATION_PATTERN = re.compile(
-    r"\bsections?\s+(\d+)"
-    r"((?:\s*(?:,|and|to)\s*\d+)*)",
+    rf"\bsections?\s+(?P<first>{CITATION_ID})"
+    rf"(?P<tail>(?:\s*(?:,|and|to)\s*{CITATION_ID})*)",
     re.IGNORECASE,
 )
 
@@ -28,30 +29,38 @@ CITATION_PATTERN = re.compile(
 @dataclass(frozen=True)
 class Reference:
     text: str
-    target: int
+    target: str
     is_external: bool = False
     external_law: str | None = None
 
 
-def _target_numbers(first: int, tail: str) -> list[int]:
-    """Expand "2, 3 and 4" and "2 to 5" into individual section numbers."""
-    numbers = [first]
+def _target_ids(first: str, tail: str) -> list[str]:
+    """Expand enumerated and purely numeric section ranges into section IDs."""
+    targets = [first]
     previous = None
 
-    for token in re.findall(r"\d+|to|and|,", tail, re.IGNORECASE):
+    tokens = re.findall(rf"{CITATION_ID}|to|and|,", tail, re.IGNORECASE)
+
+    for token in tokens:
         lowered = token.lower()
 
-        if token.isdigit():
-            number = int(token)
+        if lowered in {"to", "and", ","}:
+            previous = lowered
+            continue
 
-            if previous == "to":
-                numbers.extend(range(numbers[-1] + 1, number + 1))
+        if previous == "to" and targets[-1].isdigit() and token.isdigit():
+            start = int(targets[-1])
+            end = int(token)
+            if end > start:
+                targets.extend(str(number) for number in range(start + 1, end + 1))
             else:
-                numbers.append(number)
+                targets.append(token)
+        else:
+            targets.append(token)
 
-        previous = lowered
+        previous = None
 
-    return numbers
+    return targets
 
 
 def extract_references(text: str) -> Iterator[Reference]:
@@ -76,25 +85,25 @@ def extract_references(text: str) -> Iterator[Reference]:
             else None
         )
 
-        for number in _target_numbers(
-            int(match.group(1)), match.group(2)
+        for section_id in _target_ids(
+            match.group("first"), match.group("tail")
         ):
             yield Reference(
                 text=reference_text,
-                target=number,
+                target=section_id,
                 is_external=external_match is not None,
                 external_law=external_law,
             )
 
 
 def resolution_status(
-    reference: Reference, max_section: int = 107
+    reference: Reference, section_ids: Collection[str]
 ) -> str:
     """Return "external", "resolved", or "unresolved"."""
     if reference.is_external:
         return "external"
 
-    if 1 <= reference.target <= max_section:
+    if reference.target in section_ids:
         return "resolved"
 
     return "unresolved"
