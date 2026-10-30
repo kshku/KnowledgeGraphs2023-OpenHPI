@@ -6,25 +6,29 @@ from pathlib import Path
 import pymupdf
 
 from . import config
+from .documents import get_document, load_documents
 from .kg import KnowledgeGraph
 from .ontology_generator import generate_ontology
 from .parser import parse
 from .pdf_utils import extract_pdf
 
-PARSED_INPUT = config.PARSED_DIR / "A2019-35.jsonl"
-
-
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="knowledgegraphs2023-openhpi",
-        description="Consumer Protection Act knowledge graph and agent",
+        description="Legal Acts knowledge graph and agent",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     extract = subparsers.add_parser(
-        "extract", help="Extract and parse a PDF into sections"
+        "extract", help="Extract and parse manifest PDFs into sections"
     )
-    extract.add_argument("pdf", type=Path)
+    extract.add_argument(
+        "pdf",
+        nargs="?",
+        type=Path,
+        help="optional manifest PDF path (for compatibility)",
+    )
+    extract.add_argument("--document", help="extract one manifest document ID")
 
     subparsers.add_parser(
         "build", help="Generate the RDF ontology from parsed sections"
@@ -33,12 +37,14 @@ def build_parser() -> argparse.ArgumentParser:
     query = subparsers.add_parser(
         "query", help="Show one section from the knowledge graph"
     )
-    query.add_argument("--section", type=int, required=True)
+    query.add_argument("--section", required=True)
+    query.add_argument("--document", help="filter by manifest document ID")
 
     find = subparsers.add_parser(
         "find", help="Find sections by title or text"
     )
     find.add_argument("query")
+    find.add_argument("--document", help="filter by manifest document ID")
 
     ask = subparsers.add_parser(
         "ask", help="Ask the agent one question"
@@ -64,25 +70,64 @@ def _load_kg() -> KnowledgeGraph:
     )
 
 
-def command_extract(pdf_path: Path) -> None:
-    if not pdf_path.is_file():
-        raise FileNotFoundError(f"PDF not found: {pdf_path}")
+def command_extract(
+    document_id: str | None = None, pdf_path: Path | None = None
+) -> None:
+    if document_id is not None and pdf_path is not None:
+        raise ValueError("Use either --document or a PDF path, not both")
 
-    extracted_path = config.EXTRACTED_DIR / f"{pdf_path.stem}.jsonl"
-    parsed_path = config.PARSED_DIR / f"{pdf_path.stem}.jsonl"
+    documents = load_documents()
+    if pdf_path is not None:
+        requested_path = pdf_path.resolve()
+        matching = [
+            document
+            for document in documents
+            if document.pdf_path.resolve() == requested_path
+        ]
+        if not matching:
+            raise ValueError(f"PDF is not registered in the document manifest: {pdf_path}")
+        selected = matching
+    elif document_id is not None:
+        selected = [get_document(document_id, documents)]
+    else:
+        selected = documents
 
-    config.EXTRACTED_DIR.mkdir(parents=True, exist_ok=True)
-    config.PARSED_DIR.mkdir(parents=True, exist_ok=True)
+    for document in selected:
+        if not document.pdf_path.is_file():
+            raise FileNotFoundError(f"PDF not found: {document.pdf_path}")
 
-    extract_pdf(pdf_path, extracted_path)
-    parse(extracted_path, parsed_path)
+        extracted_path = config.EXTRACTED_DIR / f"{document.id}.jsonl"
+        parsed_path = config.PARSED_DIR / f"{document.id}.json"
+        config.EXTRACTED_DIR.mkdir(parents=True, exist_ok=True)
+        config.PARSED_DIR.mkdir(parents=True, exist_ok=True)
+
+        extract_pdf(document.pdf_path, extracted_path)
+        sections = parse(
+            extracted_path,
+            parsed_path,
+            first_section_pattern=document.first_section_pattern,
+            section_pattern=document.section_pattern,
+            end_marker=document.end_marker,
+        )
+        if len(sections) != document.expected_sections:
+            raise ValueError(
+                f"Document {document.id} expected {document.expected_sections} "
+                f"sections, parsed {len(sections)}"
+            )
 
 
-def command_build(input_path: Path = PARSED_INPUT) -> None:
-    with input_path.open(encoding="utf-8") as file:
-        sections = json.load(file)
+def command_build() -> None:
+    documents = []
+    total_sections = 0
 
-    graph = generate_ontology(sections)
+    for document in load_documents():
+        input_path = config.PARSED_DIR / f"{document.id}.json"
+        with input_path.open(encoding="utf-8") as file:
+            sections = json.load(file)
+        documents.append((document, sections))
+        total_sections += len(sections)
+
+    graph = generate_ontology(documents)
 
     config.GENERATED_ONTOLOGY_PATH.parent.mkdir(
         parents=True, exist_ok=True
@@ -91,24 +136,31 @@ def command_build(input_path: Path = PARSED_INPUT) -> None:
         destination=str(config.GENERATED_ONTOLOGY_PATH), format="xml"
     )
 
-    print(f"Sections processed: {len(sections)}")
+    print(f"Documents processed: {len(documents)}")
+    print(f"Sections processed: {total_sections}")
     print(f"RDF triples generated: {len(graph)}")
     print(f"Output: {config.GENERATED_ONTOLOGY_PATH}")
 
 
-def command_query(section_number: int) -> None:
-    section = _load_kg().get_section(section_number)
+def command_query(
+    section_id: str, document_id: str | None = None
+) -> None:
+    section = _load_kg().get_section(section_id, document_id)
 
     if section is None:
-        raise ValueError(f"Section {section_number} not found")
+        if document_id:
+            raise ValueError(
+                f"Section {section_id} not found in document {document_id}"
+            )
+        raise ValueError(f"Section {section_id} not found")
 
     print(json.dumps(section, indent=2, ensure_ascii=False))
 
 
-def command_find(query: str) -> None:
+def command_find(query: str, document_id: str | None = None) -> None:
     print(
         json.dumps(
-            _load_kg().find_sections(query),
+            _load_kg().find_sections(query, document_id),
             indent=2,
             ensure_ascii=False,
         )
@@ -186,13 +238,13 @@ def main() -> None:
     try:
         match args.command:
             case "extract":
-                command_extract(args.pdf)
+                command_extract(args.document, args.pdf)
             case "build":
                 command_build()
             case "query":
-                command_query(args.section)
+                command_query(args.section, args.document)
             case "find":
-                command_find(args.query)
+                command_find(args.query, args.document)
             case "ask":
                 command_ask(args.question)
             case "chat":
