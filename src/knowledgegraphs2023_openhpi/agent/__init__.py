@@ -12,10 +12,13 @@ PROMPT = (Path(__file__).parent / "AGENTS.md").read_text(
 
 def build_agent(kg: KnowledgeGraph, graph, chat_model=None):
     """Build the LangChain tool-calling agent over the knowledge graph."""
-    from ..models import model
+    if chat_model is None:
+        from ..models import model
+
+        chat_model = model
 
     return create_agent(
-        model=chat_model or model,
+        model=chat_model,
         tools=build_tools(kg, graph),
         system_prompt=PROMPT,
     )
