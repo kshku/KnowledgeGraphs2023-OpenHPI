@@ -8,65 +8,129 @@ from knowledgegraphs2023_openhpi.kg import KnowledgeGraph
 LEGAL = Namespace(f"{ONTOLOGY_IRI}#")
 
 
+def _add_section(graph, document_id, section_id, title, text, page):
+    provision = LEGAL[f"{document_id}_Section{section_id}"]
+    passage = LEGAL[f"{document_id}_Section{section_id}_Passage1"]
+    graph.add((provision, RDF.type, LEGAL.Provision))
+    graph.add(
+        (
+            provision,
+            LEGAL.sectionNumber,
+            Literal(section_id, datatype=XSD.string),
+        )
+    )
+    graph.add((provision, LEGAL.sectionTitle, Literal(title)))
+    graph.add((provision, LEGAL.containsPassage, passage))
+    graph.add((passage, RDF.type, LEGAL.TextPassage))
+    graph.add((passage, LEGAL.text, Literal(text)))
+    graph.add((passage, LEGAL.pageNumber, Literal(page, datatype=XSD.integer)))
+    graph.add((LEGAL[document_id], LEGAL.hasProvision, provision))
+
+
 @pytest.fixture
 def kg(tmp_path):
     graph = Graph()
-    act = LEGAL.ConsumerProtectionAct2019
-
-    sections = [
-        (1, "Short title", "1. Short title.—Body one.", 6),
-        (2, "Definitions", "2. Definitions.—Body two.", 7),
+    documents = [
+        ("example-act-a", "Example Act A", "https://example.org/a"),
+        ("example-act-b", "Example Act B", None),
     ]
 
-    for number, title, text, page in sections:
-        provision = LEGAL[f"CPA2019_Section{number}"]
-        passage = LEGAL[f"CPA2019_Section{number}_Passage1"]
-
-        graph.add((act, LEGAL.hasProvision, provision))
-        graph.add((provision, RDF.type, LEGAL.Provision))
-        graph.add(
-            (
-                provision,
-                LEGAL.sectionNumber,
-                Literal(str(number), datatype=XSD.string),
+    for document_id, title, source_url in documents:
+        act = LEGAL[document_id]
+        graph.add((act, RDF.type, LEGAL.Act))
+        graph.add((act, LEGAL.title, Literal(title, datatype=XSD.string)))
+        if source_url:
+            graph.add(
+                (
+                    act,
+                    LEGAL.sourceURL,
+                    Literal(source_url, datatype=XSD.anyURI),
+                )
             )
-        )
-        graph.add((provision, LEGAL.sectionTitle, Literal(title)))
-        graph.add((provision, LEGAL.containsPassage, passage))
-        graph.add((passage, RDF.type, LEGAL.TextPassage))
-        graph.add((passage, LEGAL.text, Literal(text)))
-        graph.add(
-            (
-                passage,
-                LEGAL.pageNumber,
-                Literal(page, datatype=XSD.integer),
-            )
-        )
 
-    mention = LEGAL["CPA2019_Section1_Reference1"]
-    graph.add((mention, RDF.type, LEGAL.ReferenceMention))
-    graph.add((mention, LEGAL.referenceText, Literal("section 2")))
-    graph.add((mention, LEGAL.resolutionStatus, Literal("resolved")))
-    graph.add((mention, LEGAL.occursIn, LEGAL["CPA2019_Section1_Passage1"]))
-    graph.add(
+    for document_id, section_id, title, text, page in [
         (
-            mention,
-            LEGAL.referencesProvision,
-            LEGAL["CPA2019_Section2"],
+            "example-act-a",
+            "2",
+            "Definitions",
+            "2. Definitions.—See sections 2A and 53-O and section 99.",
+            6,
+        ),
+        (
+            "example-act-a",
+            "2A",
+            "Inserted definitions",
+            "2A. Inserted definitions.—See section 2.",
+            7,
+        ),
+        (
+            "example-act-a",
+            "53-O",
+            "Procedure and powers",
+            "53-O. Procedure and powers.—Body for 53-O.",
+            8,
+        ),
+        (
+            "example-act-b",
+            "2",
+            "Definitions",
+            "2. Definitions.—A different Act's definition.",
+            9,
+        ),
+        (
+            "example-act-b",
+            "99",
+            "Only in Act B",
+            "99. Only in Act B.—This must not resolve from Act A.",
+            10,
+        ),
+    ]:
+        _add_section(graph, document_id, section_id, title, text, page)
+
+    references = [
+        ("example-act-a", "2", 1, "sections 2A", "resolved", "2A"),
+        ("example-act-a", "2", 2, "section 53-O", "resolved", "53-O"),
+        ("example-act-a", "2", 3, "section 99", "unresolved", None),
+        ("example-act-a", "2A", 1, "section 2", "resolved", "2"),
+    ]
+    for document_id, source_id, index, text, status, target_id in references:
+        mention = LEGAL[
+            f"{document_id}_Section{source_id}_Reference{index}"
+        ]
+        graph.add((mention, RDF.type, LEGAL.ReferenceMention))
+        graph.add((mention, LEGAL.referenceText, Literal(text)))
+        graph.add((mention, LEGAL.resolutionStatus, Literal(status)))
+        graph.add(
+            (
+                mention,
+                LEGAL.occursIn,
+                LEGAL[f"{document_id}_Section{source_id}_Passage1"],
+            )
         )
-    )
+        if target_id:
+            graph.add(
+                (
+                    mention,
+                    LEGAL.referencesProvision,
+                    LEGAL[f"{document_id}_Section{target_id}"],
+                )
+            )
 
     path = tmp_path / "kg.rdf"
     graph.serialize(destination=path, format="xml")
 
     schema = Graph()
-    for class_name in ("Provision", "TextPassage", "ReferenceMention"):
+    for class_name in (
+        "Provision",
+        "TextPassage",
+        "ReferenceMention",
+        "Act",
+    ):
         schema.add((LEGAL[class_name], RDF.type, OWL.Class))
 
     schema.add((LEGAL.containsPassage, RDF.type, OWL.ObjectProperty))
     schema.add((LEGAL.containsPassage, RDFS.domain, LEGAL.Provision))
     schema.add((LEGAL.containsPassage, RDFS.range, LEGAL.TextPassage))
-
     schema.add((LEGAL.sectionNumber, RDF.type, OWL.DatatypeProperty))
     schema.add((LEGAL.sectionNumber, RDFS.domain, LEGAL.Provision))
     schema.add((LEGAL.sectionNumber, RDFS.range, XSD.string))
