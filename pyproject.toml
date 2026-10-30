@@ -8,13 +8,37 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "langchain>=1.4.0",
+    "pydantic-settings>=2.15.0",
     "pymupdf>=2.0",
     "rdflib>=7.6.0",
 ]
 
 [project.scripts]
-knowledgegraphs2023-openhpi = "knowledgegraphs2023_openhpi:main"
+knowledgegraphs2023-openhpi = "knowledgegraphs2023_openhpi.main:main"
+
+[project.optional-dependencies]
+openai = [
+    "langchain-openai>=1.6.0",
+]
+ollama = [
+    "langchain-ollama>=1.1.0",
+]
+gemini = [
+    "langchain-google-genai>=4.4.0",
+]
+anthropic = [
+    "langchain-anthropic>=1.7.1",
+]
+openrouter = [
+    "langchain-openrouter>=0.2.8",
+]
 
 [build-system]
 requires = ["uv_build>=0.12.10,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
