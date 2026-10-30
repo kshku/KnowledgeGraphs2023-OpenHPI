@@ -10,12 +10,12 @@ from knowledgegraphs2023_openhpi.documents import (
 
 
 EXPECTED_DOCUMENTS = {
-    "railways-act-1989": ("The Railways Act, 1989", 200),
+    "railways-act-1989": ("The Railways Act, 1989", 234),
     "multimodal-transportation-of-goods-act-1993": (
         "The Multimodal Transportation of Goods Act, 1993",
-        31,
+        33,
     ),
-    "competition-act-2002": ("The Competition Act, 2002", 66),
+    "competition-act-2002": ("The Competition Act, 2002", 97),
     "food-safety-and-standards-act-2006": (
         "The Food Safety and Standards Act, 2006",
         101,
@@ -31,7 +31,7 @@ EXPECTED_DOCUMENTS = {
     ),
     "jammu-and-kashmir-reorganisation-act-2019": (
         "The Jammu and Kashmir Reorganisation Act, 2019",
-        103,
+        107,
     ),
     "mediation-act-2023": ("The Mediation Act, 2023", 65),
 }

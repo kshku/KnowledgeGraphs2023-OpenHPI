@@ -5,21 +5,21 @@
       "title": "The Railways Act, 1989",
       "pdf": "data/A1989-24.pdf",
       "source_url": "",
-      "expected_sections": 200
+      "expected_sections": 234
     },
     {
       "id": "multimodal-transportation-of-goods-act-1993",
       "title": "The Multimodal Transportation of Goods Act, 1993",
       "pdf": "data/a1993-28.pdf",
       "source_url": "",
-      "expected_sections": 31
+      "expected_sections": 33
     },
     {
       "id": "competition-act-2002",
       "title": "The Competition Act, 2002",
       "pdf": "data/A2003-12.pdf",
       "source_url": "",
-      "expected_sections": 66
+      "expected_sections": 97
     },
     {
       "id": "food-safety-and-standards-act-2006",
@@ -54,7 +54,7 @@
       "title": "The Jammu and Kashmir Reorganisation Act, 2019",
       "pdf": "data/a2019-34.pdf",
       "source_url": "",
-      "expected_sections": 103
+      "expected_sections": 107
     },
     {
       "id": "mediation-act-2023",
