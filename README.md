@@ -15,14 +15,17 @@ such as `2A`, `4-I`, and `53-O` are preserved.
 The combined generated graph is `ontology/generated/legal-documents.rdf`. Open
 the schema and generated graph together in Protégé to inspect the ontology and
 its individuals, or load either RDF/XML file with RDFLib.
+When Protégé resolves the generated graph's import, map
+`https://example.org/legal-ontology` to `../legal-ontology.rdf` in
+`ontology/generated/catalog-v001.xml` (the generated graph is not the schema).
 
 The manifest at `data/documents.json` currently registers:
 
 | Document | PDF | Provisions |
 |---|---|---:|
-| The Railways Act, 1989 | `A1989-24.pdf` | 234 |
+| The Railways Act, 1989 | `A1989-24.pdf` | 235 |
 | The Multimodal Transportation of Goods Act, 1993 | `a1993-28.pdf` | 33 |
-| The Competition Act, 2002 | `A2003-12.pdf` | 97 |
+| The Competition Act, 2002 | `A2003-12.pdf` | 98 |
 | The Food Safety and Standards Act, 2006 | `A2006-34.pdf` | 101 |
 | The Legal Metrology Act, 2009 | `a2010-1.pdf` | 57 |
 | The Bureau of Indian Standards Act, 2016 | `A2016-11.pdf` | 43 |
@@ -115,10 +118,12 @@ Act IDs, scopes section queries to the right Act, grounds answers in graph
 results, and cites the Act title and section ID (plus source URL when present).
 Before SPARQL, it calls `kg_get_schema` to learn the available ontology terms.
 
-Set up the model in `.env` (see `.env.example`), then run:
+Set up the model in `.env` (see `.env.example`). For the OpenRouter provider,
+set `KG_MODEL_PROVIDER=openrouter`, `KG_MODEL_NAME` to an OpenRouter model ID,
+and `OPENROUTER_API_KEY`, then install its optional integration:
 
 ```bash
-uv sync --extra openai
+uv sync --extra openrouter
 uv run python -m knowledgegraphs2023_openhpi ask \
   "What are the rights of a consumer under the Consumer Protection Act?"
 uv run python -m knowledgegraphs2023_openhpi chat
