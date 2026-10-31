@@ -14,12 +14,3 @@ ONTOLOGY_SCHEMA_PATH = ONTOLOGY_DIR / "legal-ontology.rdf"
 
 ONTOLOGY_IRI = "https://example.org/legal-ontology"
 DATA_ONTOLOGY_IRI = f"{ONTOLOGY_IRI}/data/legal-documents"
-
-ACT_TITLE = "The Consumer Protection Act, 2019"
-ACT_SOURCE_URL = (
-    "https://indiacode.gov.in/pdf-viewer/"
-    "1b6c1754-47b1-411e-9607-1712a9caf368/"
-    "b5ba879f-4662-458c-b5d3-dae377ff92e0"
-)
-
-EXPECTED_SECTION_COUNT = 107
