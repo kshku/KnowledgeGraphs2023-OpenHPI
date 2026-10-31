@@ -51,6 +51,49 @@ def test_parse_sections_strips_amendment_markers_and_skips_numbered_notes():
     assert sections[2].title == "Tribunal"
 
 
+def test_parse_sections_handles_repeated_markers_and_missing_period():
+    sections = parse_sections(
+        records(
+            "1. Short title.—This Act may be called the Act.\n"
+            "2. Definitions.—These are the definitions.\n"
+            "20-I Power to take possession.—The Government may take possession.\n"
+            "3[ 4[53A. Appellate Tribunal.—The Tribunal is constituted."
+        )
+    )
+
+    assert [section.section_id for section in sections] == [
+        "1",
+        "2",
+        "20-I",
+        "53A",
+    ]
+    assert sections[2].title == "Power to take possession"
+    assert sections[3].title == "Appellate Tribunal"
+
+
+def test_parse_sections_stops_at_statement_and_bracketed_schedule():
+    statement_sections = parse_sections(
+        records(
+            "1. Short title.—This Act may be called the Act.\n"
+            "2. Repeal and savings.—This is the final provision.\n"
+            "STATEMENT OF OBJECTS AND REASONS\n"
+            "This explanatory text is not section text."
+        )
+    )
+    schedule_sections = parse_sections(
+        records(
+            "1. Short title.—This Act may be called the Act.\n"
+            "2. Repeal and savings.—This is the final provision.\n"
+            "[THE SCHEDULE] Rep. by another Act.\n"
+            "Statement of objects and reasons"
+        )
+    )
+
+    assert "STATEMENT OF OBJECTS AND REASONS" not in statement_sections[-1].text
+    assert "[THE SCHEDULE]" not in schedule_sections[-1].text
+    assert "explanatory text" not in statement_sections[-1].text
+
+
 def test_parse_sections_rejects_duplicate_ids():
     with pytest.raises(ValueError, match="Duplicate section ID: 2A"):
         parse_sections(
@@ -115,14 +158,34 @@ def test_all_manifest_pdfs_parse_expected_provision_counts():
         assert len(ids) == len(sections), document.id
         results[document.id] = ids
 
-    assert {"34", "35", "158", "176", "4-I", "20-O"} <= results[
+    assert {"34", "35", "158", "176", "4-I", "20-I", "20-O"} <= results[
         "railways-act-1989"
     ]
     assert {"20A", "31", "32"} <= results[
         "multimodal-transportation-of-goods-act-1993"
     ]
-    assert {"53-O", "53-S", "53B"} <= results["competition-act-2002"]
+    assert {"53A", "53-O", "53-S", "53B"} <= results[
+        "competition-act-2002"
+    ]
     assert "153-O" not in results["competition-act-2002"]
+
+    for document in load_documents():
+        with pymupdf.open(document.pdf_path) as pdf:
+            records_for_document = [
+                {"page": number, "text": page.get_text("text")}
+                for number, page in enumerate(pdf, start=1)
+            ]
+        final_sections = parse_sections(records_for_document)
+        final_text = final_sections[-1].text.upper()
+        assert "STATEMENT OF OBJECTS AND REASONS" not in final_text, document.id
+
+    multimodal_tail = parse_sections(
+        [
+            {"page": 1, "text": "1. Short title.—This Act may be called the Act.\n"},
+            {"page": 2, "text": "2. Repeal and savings.—Final section.\n[THE SCHEDULE] Rep. by another Act."},
+        ]
+    )[-1].text
+    assert "[THE SCHEDULE]" not in multimodal_tail
 
 
 def test_parse_writes_section_records_as_json_array(tmp_path):

@@ -4,14 +4,18 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 SECTION_START = re.compile(
-    r"^\s*(?P<section_id>\d+(?:-?[A-Za-z]+)?)\.\s*(?P<remainder>.*)$"
+    r"^\s*(?P<section_id>\d+(?:-?[A-Za-z]+)?)(?:\.\s*|\s+)"
+    r"(?P<remainder>.*)$"
 )
 SECTION_SEPARATOR = re.compile(r"\.\s*[—–-]")
 CHAPTER_HEADING = re.compile(r"^\s*CHAPTER\s+[IVXLCDM]+\s*$", re.IGNORECASE)
 DEFAULT_END_MARKER = re.compile(
-    r"^\s*(?:THE\s+)?(?:(?:FIRST|SECOND|THIRD|FOURTH|FIFTH|SIXTH|"
+    r"^\s*(?:STATEMENT\s+OF\s+OBJECTS\s+AND\s+REASONS|"
+    r"\[?\s*(?:THE\s+)?(?:(?:FIRST|SECOND|THIRD|FOURTH|FIFTH|SIXTH|"
     r"SEVENTH|EIGHTH|NINTH|TENTH|\d+(?:ST|ND|RD|TH)?|[IVXLCDM]+)\s+)?"
-    r"SCHEDULES?(?:\s+\[[^\]]*\])?\.?\s*$",
+    r"SCHEDULES?(?:\s+[IVXLCDM]+)?\s*\]?"
+    r"(?:\s+\[[^\]]*\])?\.?"
+    r"(?:\s*(?:Rep\.|Omitted\b).*)?)\s*$",
     re.IGNORECASE,
 )
 FOOTNOTE_START = re.compile(
@@ -35,7 +39,7 @@ def is_chapter_heading(line: str) -> bool:
 
 
 def _clean_heading_line(line: str) -> str:
-    return re.sub(r"^\s*\d+\s*\[", "", line).rstrip()
+    return re.sub(r"^\s*(?:\d+\s*\[\s*)+", "", line).rstrip()
 
 
 def _compile_pattern(pattern: str | None, default: re.Pattern) -> re.Pattern:
@@ -57,6 +61,14 @@ def _heading_candidate(
         return None
 
     section_id = match.group("section_id")
+    section_separator = cleaned[match.end("section_id") :]
+    if (
+        section_pattern is SECTION_START
+        and section_separator[:1].isspace()
+        and "-" not in section_id
+    ):
+        return None
+
     remainder = match.groupdict().get("remainder") or cleaned[match.end() :]
     if FOOTNOTE_START.match(remainder.strip()):
         return None

@@ -90,3 +90,18 @@ def test_validate_detects_wrong_document_links_despite_matching_totals(tmp_path)
 
     assert any("section 2 is not linked to its Act" in p for p in problems)
     assert any("foreign provision: act-b_Section2" in p for p in problems)
+
+
+def test_generated_graph_resolves_reviewed_inserted_section_ids():
+    kg = KnowledgeGraph(config.GENERATED_ONTOLOGY_PATH)
+
+    assert kg.section_exists("53A", "competition-act-2002")
+    assert kg.section_exists("20-I", "railways-act-1989")
+    assert any(
+        reference["target"] == "53A" and reference["status"] == "resolved"
+        for reference in kg.get_references("53B", "competition-act-2002")
+    )
+    assert any(
+        reference["target"] == "20-I" and reference["status"] == "resolved"
+        for reference in kg.get_references("20H", "railways-act-1989")
+    )

@@ -1309,50 +1309,7 @@ repeal.
 
 
 IndiaCode
-20
-STATEMENT OF OBJECTS AND REASONS
-The Bureau of Indian Standards Act, 1986 (BIS Act) provides for the establishment of a Bureau of
-Indian Standards (BIS) and for the harmonious development of the activities of standardisation, marking
-and quality certification of goods and processes. So far, the BIS has formulated over 19300 standards for
-about 9500 products and services.
- 2. The core activities of BIS are standard formulation and certification of articles and processes
-under licence. The BIS has the power to grant licence to use the standard mark under section 10 of the
-BIS Act. The World Trade Organisation (WTO) agreement on Technical Barriers to Trade encourages all
-member countries to adopt International Standards and also move towards mutual recognition of
-certification systems. WTO guidelines also provide that enforcement of standards should have uniform
-application for both domestic industry and imported goods. In view of the increasing significance of
-Standards and conformity assessment systems in world trade, it is essential that the BIS re-orients itself to
-adequately address the future challenges as the National Standards Body of India.
- 3. At present, the BIS is not formally recognised as the National Standards Body of India though it
-has been representing India in various international bodies. The BIS Act also does not provide for recall
-of sub-standard ISI marked products, Hallmarking of precious metal articles, compounding of offences,
-etc. Provisions related to formulation of standards and conformity processes are also required to be
-aligned with global best practices. Further the said Act restricts the list of items to those, as referred to in
-the Schedule of the Industries (Development and Regulation) Act, 1951, which can be brought under the
-ambit of mandatory compliance by manufacturers.
-4. In view of the increasing significance of standards and conformity assessment systems in World
-Trade, and to address the aforesaid issues and future challenges in the area, comprehensive amendments
-are required in the present BIS Act to adequately protect the interests of the consumers. Therefore, it is
-proposed to enact a new legislation and repeal the BIS Act.
-5. The Bureau of Indian Standards Bill, 2015, inter alia, seeks to provide for—
-(i) establishment of BIS as National Standards Body of India;
-(ii) to empower the Central Government to authorise any other agency having necessary
-accreditation for the purpose of conformity assessment against Indian Standard;
-(iii) to enable the Government to bring more products, systems and services under the ambit of
-standardisation;
- (iv) to allow multiple types of conformity assessment schemes in tune with global best practices;
- (v) to enable mandatory hallmarking of precious metal articles;
- (vi) to prevent the misuse of Standard Mark;
-(vii) to provide for compounding of offences and also make certain offences as cognizable; and
-(viii) to repeal the Bureau of Indian Standards Act, 1986 (63 of 1986).
- 6. The Bill seeks to achieve the above objectives.
-
-RAM VILAS PASWAN.
-
- NEW DELHI;
-The 17th July, 2015.
-
-IndiaCode</legal:text>
+20</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#bureau-of-indian-standards-act-2016_Section43_Reference1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -1360,13 +1317,6 @@ IndiaCode</legal:text>
     <legal:occursIn rdf:resource="https://example.org/legal-ontology#bureau-of-indian-standards-act-2016_Section43_Passage1"/>
     <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 6</legal:referenceText>
     <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">external</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#bureau-of-indian-standards-act-2016_Section43_Reference2">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#bureau-of-indian-standards-act-2016_Section43_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 10</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#bureau-of-indian-standards-act-2016_Section10"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#bureau-of-indian-standards-act-2016_Section4_Passage1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#TextPassage"/>
@@ -1577,6 +1527,7 @@ accordance with the direction and subject to such rules as may be made by the Ce
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53-I"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53-O"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53-S"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53B"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53C"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53D"/>
@@ -2832,7 +2783,8 @@ Prohibition of agreements</legal:text>
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
     <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section2_Passage1"/>
     <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53A</legal:referenceText>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unresolved</legal:resolutionStatus>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section2_Reference10">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -4815,6 +4767,155 @@ section 35.</legal:text>
     <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section35"/>
     <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
   </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:containsPassage rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53A</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appellate Tribunal</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#TextPassage"/>
+    <legal:pageNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">37</legal:pageNumber>
+    <legal:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3[ 4[53A. Appellate Tribunal.—The National Company Law Appellate Tribunal constituted under
+section 410 of the Companies Act, 2013 (18 of 2013) shall, on and from the commencement of Part XIV
+of Chapter VI of the Finance Act, 2017 (7 of 2017), be the Appellate Tribunal for the purposes of this Act
+and the said Appellate Tribunal shall—
+(a) hear and dispose of appeals against any direction issued or decision made or order passed by
+the Commission under 5[sub-section (6) of section 6, sub-sections (2), (2A), (6) and (9) of section 26],
+section 27, section 28, section 31, section 32, section 33, section 38, section 39, section 43, section
+43A, section 44, section 45 or section 46 of this Act; and
+(b) adjudicate on claim for compensation that may arise from the findings of the Commission or
+the orders of the Appellate Tribunal in an appeal against any finding of the Commission or under
+section 42A or under sub-section (2) of section 53Q of this Act, and pass orders for the recovery of
+compensation under section 53N of this Act.]</legal:text>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference1">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:externalLaw rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Companies Act, 2013</legal:externalLaw>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 410</legal:referenceText>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">external</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference10">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 39</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section39"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference11">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 43</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section43"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference12">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section
+43A</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section43A"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference13">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 44</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section44"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference14">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 45</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section45"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference15">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 46</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section46"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference16">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 42A</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section42A"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference17">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53Q</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53Q"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference18">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53N</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53N"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference2">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 6</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section6"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference3">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 26</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section26"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference4">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 27</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section27"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference5">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 28</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section28"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference6">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 31</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section31"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference7">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 32</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section32"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference8">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 33</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section33"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53A_Reference9">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 38</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section38"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53B">
     <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
     <legal:containsPassage rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53B_Passage1"/>
@@ -4861,13 +4962,15 @@ from the date of receipt of the appeal.</legal:text>
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
     <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53B_Passage1"/>
     <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53A</legal:referenceText>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unresolved</legal:resolutionStatus>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53B_Reference2">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
     <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53B_Passage1"/>
     <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53A</legal:referenceText>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unresolved</legal:resolutionStatus>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53B_Reference3">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -5081,7 +5184,8 @@ any violation of the Act has taken place.</legal:text>
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
     <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53N_Passage1"/>
     <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53A</legal:referenceText>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unresolved</legal:resolutionStatus>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53A"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53N_Reference6">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -5223,146 +5327,7 @@ copies of the report shall be forwarded to the Central Government.
 (3) A copy of the report received under sub-section (2) shall be laid, as soon as may be after it is
 received, before each House of Parliament.
 1[CHAPTER VIIIA
-2[APPELLATE TRIBUNAL]
-3[ 4[53A. Appellate Tribunal.—The National Company Law Appellate Tribunal constituted under
-section 410 of the Companies Act, 2013 (18 of 2013) shall, on and from the commencement of Part XIV
-of Chapter VI of the Finance Act, 2017 (7 of 2017), be the Appellate Tribunal for the purposes of this Act
-and the said Appellate Tribunal shall—
-(a) hear and dispose of appeals against any direction issued or decision made or order passed by
-the Commission under 5[sub-section (6) of section 6, sub-sections (2), (2A), (6) and (9) of section 26],
-section 27, section 28, section 31, section 32, section 33, section 38, section 39, section 43, section
-43A, section 44, section 45 or section 46 of this Act; and
-(b) adjudicate on claim for compensation that may arise from the findings of the Commission or
-the orders of the Appellate Tribunal in an appeal against any finding of the Commission or under
-section 42A or under sub-section (2) of section 53Q of this Act, and pass orders for the recovery of
-compensation under section 53N of this Act.]</legal:text>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference1">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:externalLaw rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Companies Act, 2013</legal:externalLaw>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 410</legal:referenceText>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">external</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference10">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 39</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section39"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference11">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 43</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section43"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference12">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section
-43A</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section43A"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference13">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 44</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section44"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference14">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 45</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section45"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference15">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 46</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section46"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference16">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 42A</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section42A"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference17">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53Q</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53Q"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference18">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 53N</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53N"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference2">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 6</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section6"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference3">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 26</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section26"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference4">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 27</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section27"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference5">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 28</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section28"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference6">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 31</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section31"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference7">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 32</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section32"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference8">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 33</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section33"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section53_Reference9">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section53_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 38</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#competition-act-2002_Section38"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+2[APPELLATE TRIBUNAL]</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section54">
     <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
@@ -6495,65 +6460,7 @@ regard to the effect of repeal.
 2. Subs. by s. 2, ibid., for certain words (14-10-2009).
 3. Ins. by s. 2, ibid. (w.e.f. 14-10-2009).
 IndiaCode
-49
-
-STATEMENT OF OBJECTS AND REASONS
-In the pursuit of globalisation, India has responded by opening up its economy, removing controls
-and resorting to liberalisation. The natural corollary of this is that the Indian market should be geared to
-face competition from within the country and outside. The Monopolies and Restrictive Trade Practices
-Act, 1969 has become obsolete in certain respects in the light of international economic developments
-relating more particularly to competition laws and there is a need to shift our focus from curbing
-monopolies to promoting competition.
-2. The Central Government constituted a High Level Committee on Competition Policy and Law. The
-Committee submitted its report on the 22nd May, 2000 to the Central Government. The Central
-Government consulted all concerned including the trade and industry associations and the general public.
-The Central Government after considering the suggestions of the trade and industry and the general public
-decided to enact a law on Competition.
-3. The Competition Bill, 2001 seeks to ensure fair competition in India by prohibiting trade practices
-which cause appreciable adverse effect on competition in markets within India and, for this purpose,
-provides for the establishment of a quasi-judicial body to be called the Competition Commission of India
-(hereinafter referred to as CCI) which shall also undertake competition advocacy for creating awareness
-and imparting training on competition issues.
-4. The Bill also aims at curbing negative aspects of competition through the medium of CCI. CCI will
-have a Principal Bench and Additional Benches and will also have one or more Mergers Benches. It will
-look into violations of the Act, a task which could be undertaken by the Commission based on its own
-knowledge or information or complaints received and references made by the Central Government, the
-State Governments or statutory authorities. The Commission can pass orders for granting interim relief or
-any other appropriate relief and compensation or an order imposing penalties etc. An appeal from the
-orders of the Commission shall lie to the Supreme Court. The Central Government will also have powers
-to issue directions to the Commission on policy matters after considering its suggestions as well as the
-power to supersede the Commission if such a situation is warranted.
-5. The Bill also provides for investigation by the Director-General for the Commission. The Director-
-General would be able to act only if so directed by the Commission but will not have any suo-moto
-powers for initiating investigations.
-6. The Bill confers power upon the CCI to levy penalty for contravention of its orders, failure to
-comply with its directions, making of false statements or omission to furnish material information, etc.
-The CCI can levy upon an enterprise a penalty of not more than ten per cent, of its average turn-over for
-the last three financial years. It can also order division of dominant enterprises. It will also have power to
-order demerger in the case of mergers and amalgamations that adversely affect competition.
-7. The Bill also seeks to create a fund to be called the Competition Fund. The grants given by the
-Central Government, costs realised by the Commission and application fees charged will be credited into
-this Fund. The pay and allowances and the other expenses of the Commission will also be borne out of
-this Fund. The Bill provides for empowering the Comptroller and Auditor-General of India to audit the
-accounts of the Commission. The Central Government will be required to lay the annual accounts of the
-Commission, as audited by the Comptroller and Auditor-General and also the annual report of the
-Commission before both the Houses of Parliament.
-8. The Bill aims at repealing the Monopolies and Restrictive Trade Practices Act, 1969 and the
-dissolution of the Monopolies and Restrictive Trade Practices Commission. The Bill provides that the
-cases pending before the Monopolies and Restrictive Trade Practices Commission will be transferred to
-the CCI except those relating to unfair trade practices which are proposed to be transferred to the relevant
-fora established under the Consumer Protection Act, 1986.
-IndiaCode
-50
-
-9. The Bill seeks to achieve the above objectives.
-
-ARUN JAITLEY.
-NEW DELHI;
- The 24th July, 2001.
-
-
-IndiaCode</legal:text>
+49</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#competition-act-2002_Section66_Reference1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -7746,51 +7653,7 @@ repeal.
 
 
 IndiaCode
-42
-
-STATEMENT OF OBJECTS AND REASONS
- The Consumer Protection Act, 1986 (68 of 1986) was enacted to provide for better protection of the
-interests of consumers and for the purpose of making provision for establishment of consumer protection
-councils and other authorities for the settlement of consumer disputes, etc. Although, the working of the
-consumer dispute redressal agencies has served the purpose to a considerable extent under the said Act,
-the disposal of cases has not been fast due to various constraints. Several shortcomings have been noticed
-while administering the various provisions of the said Act.
-2. Consumer markets for goods and services have undergone drastic transformation since the
-enactment of the Consumer Protection Act in 1986. The modern market place contains a plethora of
-products and services. The emergence of global supply chains, rise in international trade and the rapid
-development of e-commerce have led to new delivery systems for goods and services and have provided
-new options and opportunities for consumers. Equally, this has rendered the consumer vulnerable to new
-forms of unfair trade and unethical business practices. Misleading advertisements, tele-marketing, multi-
-level marketing, direct selling and e-commerce pose new challenges to consumer protection and will
-require appropriate and swift executive interventions to prevent consumer detriment. Therefore, it has
-become inevitable to amend the Act to address the myriad and constantly emerging vulnerabilities of the
-consumers. In view of this, it is proposed to repeal and reenact the Act.
-3. Accordingly, a Bill, namely, the Consumer Protection Bill, 2018, was introduced in Lok Sabha on
-the 5th January, 2018 and was passed by that House on the 20th December, 2018. While the Bill was
-pending consideration in Rajya Sabha, the Sixteenth Lok Sabha was dissolved and the Bill got lapsed.
-Hence, the present Bill, namely, the Consumer Protection Bill, 2019.
-4. The proposed Bill provides for the establishment of an executive agency to be known as the
-Central Consumer Protection Authority (CCPA) to promote, protect and enforce the rights of consumers;
-make interventions when necessary to prevent consumer detriment arising from unfair trade practices and
-to initiate class action including enforcing recall, refund and return of products, etc. This fills an
-institutional void in the regulatory regime extant. Currently, the task of prevention of or acting against
-unfair trade practices is not vested in any authority. This has been provided for in a manner that the role
-envisaged for the CCPA complements that of the sector regulators and duplication, overlap or potential
-conflict is avoided.
-5. The Bill also envisages provisions for product liability action on account of harm caused to
-consumers due to a defective product or by deficiency in services. Further, provision of “Mediation” as an
-Alternate Dispute Resolution Mechanism has also been provided.
- 6. The Bill provides for several provisions aimed at simplifying the consumer dispute adjudication
-process of the Consumer Disputes Redressal Agencies, inter alia, relating to enhancing the pecuniary
-jurisdiction of the Consumer Disputes Redressal Agencies; increasing minimum number of Members in
-the State Consumer Disputes Redressal Commissions and provisions for consumers to file complaints
-electronically, etc.
-7. The Bill seeks to achieve the above objectives.
-
- RAM VILAS PASWAN.
-    NEW DELHI;
-The 2nd July, 2019.
-IndiaCode</legal:text>
+42</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#consumer-protection-act-2019_Section107_Reference1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -20058,50 +19921,7 @@ __________
 
 
 IndiaCode
-21
-
-
-
-STATEMENT OF OBJECTS AND REASONS
-In India, uniform standards of weights and measures based on the metric system, were established in
-the year 1956, which were revised in the year 1976 with a view to give effect to the international system
-of units. Apart from it, the Standards of Weights and Measures Act, 1976 provides for establishing
-Standards of Weights and Measures, regulation of inter-State trade or commerce in weights and measures
-and other goods which are sold by weight, measure or number. In the year 1985, the Standards of Weights
-and Measures (Enforcement) Act, 1985 was enacted for enforcement of standards of weights and
-measures established by or under the 1976 Act.
-2. The advancement of technology has necessitated the review of above mentioned enactments to
-make them simple, eliminate obsolete regulations, ensure accountability and bring transparency.
-3. It has become imperative to combine the provisions of the existing two Acts to get rid of anomalies
-and make the provisions simple. It has also become necessary to keep the regulation pragmatic to the
-extent required for protecting the interest of consumers and at the same time keep the industry free from
-undue interference. It has also become necessary to recognise certain “Government approved Test
-Centres” which will be empowered to verify prescribed weight or measure.
-4. The Bill, inter alia, provides for,—
-(a) regulation of weight or measure used in transaction or for protection;
-(b) approval of model of weight or measure;
-(c) verification of prescribed weight or measure by Government approved Test Centre;
-(d) prescribing qualification of legal metrology officers appointed by the Central Government or
-State Government;
-(e) exempting regulation of weight or measure or other goods meant for export;
-(f) levy of fee for various services;
-(g) nomination of a Director by a company who will be responsible for complying with
-the provisions of the enactment;
-(h) penalty for offences and compounding of offences;
-(i) appeal against decision of various authorities; and
-(j) empowering the Central Government to make rules for enforcing the provisions of the
-enactment.
-
-SHARAD PAWAR.
-
-    NEW DELHI;
-The 16th October, 2008.
-
-
-
-
-
-IndiaCode</legal:text>
+21</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#legal-metrology-act-2009_Section5_Passage1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#TextPassage"/>
@@ -22830,89 +22650,7 @@ deemed to have been done or taken under the corresponding provisions of this Act
 
 
 IndiaCode
-14
-
-
-[THE SCHEDULE] Rep. by the Repealing and Amending Act, 2001 (30 of 2001), s. 2 and the First
-Schedule (w.e.f. 3-9-2001).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-IndiaCode
-15
-
-STATEMENT OF OBJECTS AND REASONS
-International, transportation of general Cargo has undergone important structural changes due to
-advances in the transport technology including the advent of containers. Containers are increasingly being
-used for transportation of goods from one country to another using more than one mode of transport and
-more than one carrier. Such unbroken multimodal transportation of goods is also being done under a
-single transport document covering all the modes of transport and the multimodal transport operator
-remains liable and responsible to the cargo owner. Multimodal transportation of goods has become a
-standard practice in the trade between developed countries and the same is now gradually spreading to
-developing countries also.
-2. India’s overseas general cargo trade has also started moving in containers. The containerised cargo
-is also moving from the hinterland, particularly from the inland container depots set up in the country, to
-the perots. In order to facilitate containerised trade, container handling facilities in major Indian tails,
-container railway flat wagons, inland container depots and container freight stations have been and are
-being developed. The quantum of India’s general cargo trade moving in containers is thus gradually
-increasing. The Government of Inda had set up a Working Group to examine the prevalent situation and
-to recommend a law on multimodal transportation of goods for India which should clearly determine the
-liabilities and responsibilities of multimodal transport operators for loss of, or damage to, the goods. This
-Group formulated proposals for the said legislation which were substantially based on the rules framed
-by the International Chamber of Commerce. The Group also took note of the provisions of the United
-Nations Convention on Multimodal Transport of Goods, 1980. The Group also recommended certain
-amendments to the Carriers Act, 1865, the Indian Carriage of Goods by Sea Act, 1925 and the Sale of
-Goods Act, 1930.
-3. In the context of various measures taken by the Government of India to liberalise controls, simplify
-procedures, facilitate smooth flow of international trade and promotion of exports, it became necessary to
-immediately regulate multimodal transportation of goods by law with a view to reducing and eliminating
-interruption in the continuous movement of goods from their origin to the ultimate destination as also
-reducing cost and delays and improving the quality of transport services. The President accordingly
-promulgated the Multimodal Transportation of Goods Ordinance, 1992 on the 16th October, 1992 to
-provide a legal regime to govern n a uniform basis, the labilities and responsibilities of a multimodal
-transport operator who can provide services under a single document to shippers engaged in international
-trade.
-4. The Multimodal Transportation of Goods Bill, 1992 for replacing the said Ordinance was,
-therefore, introduced in the Council of States on 30-11-92. The Bill was passed by the Council of States
-on 22-12-1992. However, the said Bill could not be considered and passed by the House of the People
-during the Winter Session of 1992. Since the process multimodal transportation of goods had set in and
-registration of Multimodal Transport operation under the said Ordinance had also started, it became
-necessary to re-promulgate the said Ordinance. The President accordingly promulgated the Multimodal
-Transportation of Goods Ordinance, 1993 (Ord. of 1993) on 2nd January, 1993.
-4. The Bill seeks to replace the said Ordinance.
-
-
-
-
-
-
-
-
-
-
-
-
-JAGDISH TYTLER.
-
-
-
-
-
-IndiaCode</legal:text>
+14</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#multimodal-transportation-of-goods-act-1993_Section3_Passage1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#TextPassage"/>
@@ -23246,6 +22984,7 @@ character of the multimodal transport document.]</legal:text>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section199"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section2"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20"/>
+    <legal:hasProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-I"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-O"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section200"/>
     <legal:hasProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20A"/>
@@ -26956,6 +26695,52 @@ force of that provision.</legal:text>
     <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20</legal:sectionNumber>
     <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power of Central Government to give directions for safety</legal:sectionTitle>
   </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20-I">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
+    <legal:containsPassage rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-I_Passage1"/>
+    <legal:sectionNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20-I</legal:sectionNumber>
+    <legal:sectionTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Power to take possession</legal:sectionTitle>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20-I_Passage1">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#TextPassage"/>
+    <legal:pageNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</legal:pageNumber>
+    <legal:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20-I Power to take possession.—(1) Where any land has vested in the Central Government under
+sub-section (2) of section 20E, and the amount determined by the competent authority under section 20F
+with respect to such land has been deposited under sub-section (1) of section 20H with the competent
+authority by the Central Government, the competent authority may, by notice in writing, direct the owner
+as well as any other person who may be in possession of such land to surrender or deliver possession thereof
+the competent authority or any person duly authorised by it in this behalf within a period of sixty days of
+the service of the notice.
+(2) If any person refuses or fails to comply with any direction made under sub-section (1), the competent
+authority shall apply—
+(a) in case of any land situated in any area falling within the metropolitan area, to the Commissioner
+of Police;
+(b) in case of any land situated in any area other than the area referred to in clause (a), to the
+Collector of a district,
+and such Commissioner or Collector, as the case may be, shall enforce the surrender of the land, to the
+competent authority or to the person duly authorised by it.</legal:text>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20-I_Reference1">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-I_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 20E</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20E"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20-I_Reference2">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-I_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 20F</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20F"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20-I_Reference3">
+    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
+    <legal:occursIn rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-I_Passage1"/>
+    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 20H</legal:referenceText>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20H"/>
+    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
+  </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20-O">
     <rdf:type rdf:resource="https://example.org/legal-ontology#Provision"/>
     <legal:containsPassage rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-O_Passage1"/>
@@ -27012,53 +26797,7 @@ repeal.
 3. Subs. by s. 4, ibid., for “the repealed Act” (w.e.f. 20-8-2025).
 4. Subs. by s. 4, ibid., for “the repealed Act” (w.e.f. 20-8-2025).
 IndiaCode
-65
-
-STATEMENT OF OBJECTS AND REASONS
-The Indian Railways Act, 1890 was enacted at a time when the railways in India were mostly managed
-by private companies. The Government of India primarily played the role of a coordinating and regulating
-authority in various matters, such as, inter-railway movement of traffic, fixation of rates, sharing of revenue
-earnings of through traffic, apportionment of claims liability amongst the railways, providing reasonable
-facilities to passenger and goods traffic, etc. This role was accordingly reflected in the Act. But now, except
-for a very small portion of the railways, the entire railway system has become part of the Government of
-India. To give effect to the changes in the railway system from time to time, the Act had also undergone
-changes a number of times since its enactment in 1890. In addition, as some of the original provisions
-enacted in 1890 had continued without any change, a need for their replacement by new provisions more
-responsive to the needs of the present day was felt and some other provisions have become redundant. There
-has also been a demand, both within and outside Parliament, for the re-enactment of the Act so as to reflect
-the large number of changes that have occurred in the railways. It has, therefore, become necessary to
-consolidate and amend the law relating to railways by a new Railway Act.
-2. The Bill, while giving effect to the changes that are necessary due to the change of circumstances,
-provides, among other things, for the following matters, namely:—
-(i) The railways are being administered by zonal railways. This position had not been given effect to
-in the Act. The Bill provides for the constitution of railway zones, abolition of existing zones and
-appointment of General Managers as heads of these railway administrations.
-(ii) Power has been given to the Central Government to fix the rates for the carriage of passengers
-and goods over the railways instead of the existing provisions to fix only the maximum and minimum
-rates for such carriage and leaving the fixation of specific rates to the railway administraţions. In
-addition, the railway administrations are also being authorised to specify lump sum rates for the carriage
-of goods.
-(iii) In accordance with certain judicial pronouncements, the Bill provides for statutory recognition
-of the railway receipt as a negotiable instrument.
-(iv) The Bill specifically provides for limiting the monetary liability of railway administrations in
-respect of payment of compensation for loss, damage, etc., of goods. Provision has, however, been made
-for full liability subject to the condition that the consignor, while entrusting the goods to a railway
-administration for carriage, should declare the value of the goods and pay a percentage charge on such
-value.
-(v) The offences included in the Act have been rationalised and a few new offences have also been
-included in the Bill. Punishments for some of the offences had not been changed since the enactment of
-the Act. Penalties provided for the offences under the Act have been made more stringent which would
-include, among other things, a minimum punishment for many of the offences.
-3. The Bill seeks to achieve the aforesaid objects.
-4. The Notes on Clauses explain in detail the provisions included in the Bill.
-
-MADHAVRAO SCINDIA.
-NEW DELHI;
-The 2nd April, 1986.
-
-
-
-IndiaCode</legal:text>
+65</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section200_Reference1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -27379,22 +27118,7 @@ thereof.
 (6) Where the amount determined by the arbitrator is in excess of the amount determined by the
 competent authority, the excess amount together with interest, if any, awarded under sub-section (5) shall
 be deposited by the Central Government, in such manner as may be prescribed by that Government, with
-the competent authority and the provisions of sub-sections (2) to (4) shall apply to such deposit.
-20-I Power to take possession.—(1) Where any land has vested in the Central Government under
-sub-section (2) of section 20E, and the amount determined by the competent authority under section 20F
-with respect to such land has been deposited under sub-section (1) of section 20H with the competent
-authority by the Central Government, the competent authority may, by notice in writing, direct the owner
-as well as any other person who may be in possession of such land to surrender or deliver possession thereof
-the competent authority or any person duly authorised by it in this behalf within a period of sixty days of
-the service of the notice.
-(2) If any person refuses or fails to comply with any direction made under sub-section (1), the competent
-authority shall apply—
-(a) in case of any land situated in any area falling within the metropolitan area, to the Commissioner
-of Police;
-(b) in case of any land situated in any area other than the area referred to in clause (a), to the
-Collector of a district,
-and such Commissioner or Collector, as the case may be, shall enforce the surrender of the land, to the
-competent authority or to the person duly authorised by it.</legal:text>
+the competent authority and the provisions of sub-sections (2) to (4) shall apply to such deposit.</legal:text>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20H_Reference1">
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
@@ -27414,27 +27138,7 @@ competent authority or to the person duly authorised by it.</legal:text>
     <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
     <legal:occursIn rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20H_Passage1"/>
     <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 20-I</legal:referenceText>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unresolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20H_Reference4">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20H_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 20E</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20E"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20H_Reference5">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20H_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 20F</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20F"/>
-    <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20H_Reference6">
-    <rdf:type rdf:resource="https://example.org/legal-ontology#ReferenceMention"/>
-    <legal:occursIn rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20H_Passage1"/>
-    <legal:referenceText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">section 20H</legal:referenceText>
-    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20H"/>
+    <legal:referencesProvision rdf:resource="https://example.org/legal-ontology#railways-act-1989_Section20-I"/>
     <legal:resolutionStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resolved</legal:resolutionStatus>
   </rdf:Description>
   <rdf:Description rdf:about="https://example.org/legal-ontology#railways-act-1989_Section20J">
