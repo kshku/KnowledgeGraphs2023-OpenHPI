@@ -17,3 +17,7 @@ def test_build_agent_uses_injected_model(monkeypatch, kg):
     assert result == "agent"
     assert captured["model"] is injected
     assert [tool.name for tool in captured["tools"]][0] == "kg_get_schema"
+    tool_names = {tool.name for tool in captured["tools"]}
+    assert "kg_list_documents" in tool_names
+    assert "document_id" in captured["system_prompt"]
+    assert "53-O" in captured["system_prompt"]

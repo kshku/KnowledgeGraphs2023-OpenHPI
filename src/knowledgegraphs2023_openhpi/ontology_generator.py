@@ -1,9 +1,11 @@
 import json
+from collections.abc import Sequence
 
 from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, XSD
 
 from . import config
+from .documents import Document, load_documents
 from .references import extract_references, resolution_status
 
 LEGAL = Namespace(f"{config.ONTOLOGY_IRI}#")
@@ -41,164 +43,192 @@ def sorted_graph(graph: Graph) -> Graph:
     return ordered
 
 
-def generate_ontology(sections: list[dict]) -> Graph:
-    """Generate individuals for the Act, provisions, passages and references."""
+def _provision_uri(document_id: str, section_id: str) -> URIRef:
+    return LEGAL[f"{document_id}_Section{section_id}"]
 
+
+def _validate_sections(document: Document, sections: Sequence[dict]) -> set[str]:
+    section_ids = []
+
+    for section in sections:
+        section_id = section.get("section_id")
+        if not isinstance(section_id, str) or not section_id:
+            raise ValueError(
+                f"Document {document.id} has an invalid section ID: {section_id!r}"
+            )
+        section_ids.append(section_id)
+
+    if len(section_ids) != len(set(section_ids)):
+        duplicates = sorted(
+            {section_id for section_id in section_ids if section_ids.count(section_id) > 1}
+        )
+        raise ValueError(
+            f"Document {document.id} has duplicate section IDs: {duplicates}"
+        )
+
+    if len(section_ids) != document.expected_sections:
+        raise ValueError(
+            f"Document {document.id} expected {document.expected_sections} "
+            f"sections, got {len(section_ids)}"
+        )
+
+    return set(section_ids)
+
+
+def generate_ontology(
+    documents: Sequence[tuple[Document, Sequence[dict]]],
+) -> Graph:
+    """Generate a deterministic graph for each Act and its provisions."""
     graph = Graph()
-
     graph.bind("legal", LEGAL)
     graph.bind("owl", OWL)
     graph.bind("xsd", XSD)
 
-    # Declare the generated data ontology and its schema import.
     data_ontology = URIRef(config.DATA_ONTOLOGY_IRI)
-
     graph.add((data_ontology, RDF.type, OWL.Ontology))
     graph.add((data_ontology, OWL.imports, URIRef(config.ONTOLOGY_IRI)))
 
-    act = LEGAL.ConsumerProtectionAct2019
+    seen_document_ids = set()
+    ids_by_document = {}
 
-    graph.add((act, RDF.type, LEGAL.Act))
-    graph.add(
-        (act, LEGAL.title, Literal(config.ACT_TITLE, datatype=XSD.string))
-    )
-    graph.add(
-        (
-            act,
-            LEGAL.sourceURL,
-            Literal(config.ACT_SOURCE_URL, datatype=XSD.anyURI),
-        )
-    )
+    for document, sections in documents:
+        if document.id in seen_document_ids:
+            raise ValueError(f"Duplicate document ID: {document.id}")
+        seen_document_ids.add(document.id)
+        ids_by_document[document.id] = _validate_sections(document, sections)
 
-    seen_numbers = set()
-
-    # First pass: create provisions and their text passages.
-    for section in sections:
-        number = int(section["number"])
-
-        if number in seen_numbers:
-            raise ValueError(f"Duplicate section number: {number}")
-
-        seen_numbers.add(number)
-
-        provision = LEGAL[f"CPA2019_Section{number}"]
-        passage = LEGAL[f"CPA2019_Section{number}_Passage1"]
-
-        graph.add((provision, RDF.type, LEGAL.Provision))
+        act = LEGAL[document.id]
+        graph.add((act, RDF.type, LEGAL.Act))
         graph.add(
             (
-                provision,
-                LEGAL.sectionNumber,
-                Literal(str(number), datatype=XSD.string),
+                act,
+                LEGAL.title,
+                Literal(document.title, datatype=XSD.string),
             )
         )
-        graph.add(
-            (
-                provision,
-                LEGAL.sectionTitle,
-                Literal(section["title"], datatype=XSD.string),
-            )
-        )
-
-        graph.add((act, LEGAL.hasProvision, provision))
-
-        graph.add((passage, RDF.type, LEGAL.TextPassage))
-        graph.add(
-            (
-                passage,
-                LEGAL.text,
-                Literal(section["text"], datatype=XSD.string),
-            )
-        )
-        graph.add(
-            (
-                passage,
-                LEGAL.pageNumber,
-                Literal(int(section["start_page"]), datatype=XSD.integer),
-            )
-        )
-
-        graph.add((provision, LEGAL.containsPassage, passage))
-
-    # Second pass: extract references after all target provisions exist.
-    for section in sections:
-        source_number = int(section["number"])
-        passage = LEGAL[f"CPA2019_Section{source_number}_Passage1"]
-
-        for index, reference in enumerate(
-            extract_references(section["text"]),
-            start=1,
-        ):
-            mention = LEGAL[
-                f"CPA2019_Section{source_number}_Reference{index}"
-            ]
-
-            graph.add((mention, RDF.type, LEGAL.ReferenceMention))
+        if document.source_url:
             graph.add(
                 (
-                    mention,
-                    LEGAL.referenceText,
-                    Literal(reference.text, datatype=XSD.string),
+                    act,
+                    LEGAL.sourceURL,
+                    Literal(document.source_url, datatype=XSD.anyURI),
                 )
             )
-            graph.add((mention, LEGAL.occursIn, passage))
 
-            status = resolution_status(
-                reference, config.EXPECTED_SECTION_COUNT
+        for section in sections:
+            section_id = section["section_id"]
+            provision = _provision_uri(document.id, section_id)
+            passage = LEGAL[
+                f"{document.id}_Section{section_id}_Passage1"
+            ]
+
+            graph.add((provision, RDF.type, LEGAL.Provision))
+            graph.add(
+                (
+                    provision,
+                    LEGAL.sectionNumber,
+                    Literal(section_id, datatype=XSD.string),
+                )
             )
+            graph.add(
+                (
+                    provision,
+                    LEGAL.sectionTitle,
+                    Literal(section["title"], datatype=XSD.string),
+                )
+            )
+            graph.add((act, LEGAL.hasProvision, provision))
 
-            if status == "resolved":
-                target = LEGAL[f"CPA2019_Section{reference.target}"]
-                graph.add((mention, LEGAL.referencesProvision, target))
+            graph.add((passage, RDF.type, LEGAL.TextPassage))
+            graph.add(
+                (
+                    passage,
+                    LEGAL.text,
+                    Literal(section["text"], datatype=XSD.string),
+                )
+            )
+            graph.add(
+                (
+                    passage,
+                    LEGAL.pageNumber,
+                    Literal(int(section["start_page"]), datatype=XSD.integer),
+                )
+            )
+            graph.add((provision, LEGAL.containsPassage, passage))
 
-            elif status == "external" and reference.external_law:
+    # Resolve citations only after provisions for their source Act exist.
+    for document, sections in documents:
+        section_ids = ids_by_document[document.id]
+        for section in sections:
+            source_id = section["section_id"]
+            passage = LEGAL[
+                f"{document.id}_Section{source_id}_Passage1"
+            ]
+
+            for index, reference in enumerate(
+                extract_references(section["text"]), start=1
+            ):
+                mention = LEGAL[
+                    f"{document.id}_Section{source_id}_Reference{index}"
+                ]
+                graph.add((mention, RDF.type, LEGAL.ReferenceMention))
                 graph.add(
                     (
                         mention,
-                        LEGAL.externalLaw,
-                        Literal(reference.external_law, datatype=XSD.string),
+                        LEGAL.referenceText,
+                        Literal(reference.text, datatype=XSD.string),
                     )
                 )
+                graph.add((mention, LEGAL.occursIn, passage))
 
-            graph.add(
-                (
-                    mention,
-                    LEGAL.resolutionStatus,
-                    Literal(status, datatype=XSD.string),
+                status = resolution_status(reference, section_ids)
+                if status == "resolved":
+                    graph.add(
+                        (
+                            mention,
+                            LEGAL.referencesProvision,
+                            _provision_uri(document.id, reference.target),
+                        )
+                    )
+                elif status == "external" and reference.external_law:
+                    graph.add(
+                        (
+                            mention,
+                            LEGAL.externalLaw,
+                            Literal(reference.external_law, datatype=XSD.string),
+                        )
+                    )
+
+                graph.add(
+                    (
+                        mention,
+                        LEGAL.resolutionStatus,
+                        Literal(status, datatype=XSD.string),
+                    )
                 )
-            )
-
-    # Check that the parser supplied the expected set of sections.
-    expected_numbers = set(range(1, config.EXPECTED_SECTION_COUNT + 1))
-
-    if seen_numbers != expected_numbers:
-        missing = sorted(expected_numbers - seen_numbers)
-        unexpected = sorted(seen_numbers - expected_numbers)
-
-        raise ValueError(
-            f"Unexpected section set. "
-            f"Missing: {missing}; unexpected: {unexpected}"
-        )
 
     return sorted_graph(graph)
 
 
 def main() -> None:
-    input_path = config.PARSED_DIR / "A2019-35.jsonl"
+    documents = []
+    total_sections = 0
 
-    with input_path.open("r", encoding="utf-8") as file:
-        sections = json.load(file)
+    for document in load_documents():
+        input_path = config.PARSED_DIR / f"{document.id}.json"
+        with input_path.open(encoding="utf-8") as file:
+            sections = json.load(file)
+        documents.append((document, sections))
+        total_sections += len(sections)
 
-    graph = generate_ontology(sections)
-
-    config.GENERATED_ONTOLOGY_PATH.parent.mkdir(
-        parents=True, exist_ok=True
-    )
+    graph = generate_ontology(documents)
+    config.GENERATED_ONTOLOGY_PATH.parent.mkdir(parents=True, exist_ok=True)
     graph.serialize(
         destination=str(config.GENERATED_ONTOLOGY_PATH), format="xml"
     )
 
-    print(f"Sections processed: {len(sections)}")
+    print(f"Documents processed: {len(documents)}")
+    print(f"Sections processed: {total_sections}")
     print(f"RDF triples generated: {len(graph)}")
     print(f"Output: {config.GENERATED_ONTOLOGY_PATH}")
 
