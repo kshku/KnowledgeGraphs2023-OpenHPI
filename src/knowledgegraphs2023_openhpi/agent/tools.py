@@ -40,8 +40,9 @@ def build_tools(kg: KnowledgeGraph, graph) -> list:
     def kg_find_sections(
         query: str, document_id: str | None = None
     ) -> list[dict]:
-        """Find sections whose title or text contains the query string
-        (case-insensitive). Search all Acts or filter by document ID."""
+        """Search section IDs, titles and text using SPARQL. Results include
+        direct matches and one-hop sections related by citations; inspect
+        match_type and related_via to distinguish them."""
         return kg.find_sections(query, document_id)
 
     @tool

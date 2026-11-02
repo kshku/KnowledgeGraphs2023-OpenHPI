@@ -21,3 +21,5 @@ def test_build_agent_uses_injected_model(monkeypatch, kg):
     assert "kg_list_documents" in tool_names
     assert "document_id" in captured["system_prompt"]
     assert "53-O" in captured["system_prompt"]
+    assert 'match_type="related"' in captured["system_prompt"]
+    assert "no synonym/alias data" in captured["system_prompt"]

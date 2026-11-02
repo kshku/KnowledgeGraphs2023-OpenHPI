@@ -109,10 +109,17 @@ uv run python -m knowledgegraphs2023_openhpi find "competition" \
   --document competition-act-2002
 ```
 
+Runtime KG reads use SPARQL queries; the agent does not read the parsed JSON
+files. `find` returns case-insensitive matches on section IDs, titles, and text
+as `match_type: direct`. It also returns one-hop provisions linked by citations
+as `match_type: related`, with `related_via` identifying the direction. Related
+provisions are context, not direct wording matches. Search uses relationships
+already present in the graph; it does not infer synonyms or use embeddings.
+
 ## Agent
 
-The agent in `src/knowledgegraphs2023_openhpi/agent/` uses typed traversal tools
-including `kg_list_documents`, `kg_list_sections`, `kg_get_section`,
+The agent in `src/knowledgegraphs2023_openhpi/agent/` uses typed SPARQL-backed
+tools including `kg_list_documents`, `kg_list_sections`, `kg_get_section`,
 `kg_find_sections`, and reference tools, plus read-only `kg_sparql`. It discovers
 Act IDs, scopes section queries to the right Act, grounds answers in graph
 results, and cites the Act title and section ID (plus source URL when present).
