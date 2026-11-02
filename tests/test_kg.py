@@ -140,16 +140,47 @@ def test_missing_schema_is_reported(monkeypatch, tmp_path, kg):
 
 def test_find_sections_searches_all_documents_and_can_filter(kg):
     matches = kg.find_sections("definitions")
+    direct = [match for match in matches if match["match_type"] == "direct"]
+    related = [match for match in matches if match["match_type"] == "related"]
+
     assert {
         (section["document_id"], section["section_id"])
-        for section in matches
+        for section in direct
     } == {
         ("example-act-a", "2"),
         ("example-act-a", "2A"),
         ("example-act-b", "2"),
     }
-    assert kg.find_sections("definitions", "example-act-b")[0][
-        "document_title"
-    ] == "Example Act B"
+    assert [(section["document_id"], section["section_id"]) for section in related] == [
+        ("example-act-a", "53-O")
+    ]
+    assert related[0]["related_via"] == "references"
+    assert "Procedure and powers" in related[0]["snippet"]
+    assert len(
+        [
+            section
+            for section in matches
+            if section["document_id"] == "example-act-a"
+            and section["section_id"] == "2A"
+        ]
+    ) == 1
+
+    filtered = kg.find_sections("definitions", "example-act-b")
+    assert [section["document_id"] for section in filtered] == [
+        "example-act-b"
+    ]
+    assert [section["match_type"] for section in filtered] == ["direct"]
+
+    inbound = kg.find_sections("Procedure", "example-act-a")
+    assert [(item["section_id"], item["match_type"]) for item in inbound] == [
+        ("53-O", "direct"),
+        ("2", "related"),
+    ]
+    assert inbound[1]["related_via"] == "referenced_by"
     assert kg.find_sections("no-such-term") == []
     assert kg.find_sections("   ") == []
+
+
+def test_find_sections_binds_search_text_as_a_literal(kg):
+    query = '" } UNION { ?s ?p ?o'
+    assert kg.find_sections(query) == []

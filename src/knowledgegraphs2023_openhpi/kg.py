@@ -243,8 +243,9 @@ class KnowledgeGraph:
             + "SELECT ?act ?document_title ?source_url ?section_id ?title "
             "?text ?page WHERE { "
             "?act a legal:Act ; legal:title ?document_title ; "
-            "legal:hasProvision ?provision . "
-            "?provision a legal:Provision ; legal:sectionNumber ?section_id ; "
+            "legal:hasProvision ?requested_provision . "
+            "?requested_provision a legal:Provision ; "
+            "legal:sectionNumber ?section_id ; "
             "legal:sectionTitle ?title ; legal:containsPassage ?passage . "
             "?passage a legal:TextPassage ; legal:text ?text . "
             "OPTIONAL { ?act legal:sourceURL ?source_url } "
@@ -253,6 +254,7 @@ class KnowledgeGraph:
             "} LIMIT 1",
             {
                 "document": self._act(resolved_id),
+                "requested_provision": self._provision(resolved_id, section_id),
                 "requested_section": Literal(section_id),
             },
         )
@@ -284,8 +286,8 @@ class KnowledgeGraph:
             "(xsd:integer(REPLACE(STR(?mention), "
             "\".*Reference([0-9]+)$\", \"$1\")) AS ?reference_order) "
             "WHERE { "
-            "?act a legal:Act ; legal:hasProvision ?source . "
-            "?source legal:sectionNumber ?source_id ; "
+            "?act a legal:Act ; legal:hasProvision ?source_provision . "
+            "?source_provision legal:sectionNumber ?source_id ; "
             "legal:containsPassage ?passage . "
             "?mention a legal:ReferenceMention ; legal:occursIn ?passage ; "
             "legal:referenceText ?reference_text ; "
@@ -297,6 +299,7 @@ class KnowledgeGraph:
             "} ORDER BY ?reference_order",
             {
                 "document": self._act(resolved_id),
+                "source_provision": self._provision(resolved_id, section_id),
                 "requested_section": Literal(section_id),
             },
         )
@@ -322,17 +325,18 @@ class KnowledgeGraph:
             "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
             "(UCASE(REPLACE(STR(?source_id), \"^[0-9]+\", \"\")) "
             "AS ?section_suffix) WHERE { "
-            "?act a legal:Act ; legal:hasProvision ?source ; "
-            "legal:hasProvision ?target . "
+            "?act a legal:Act ; legal:hasProvision ?target_provision ; "
+            "legal:hasProvision ?source . "
+            "?target_provision legal:sectionNumber ?target_id . "
             "?source legal:sectionNumber ?source_id ; "
             "legal:containsPassage ?passage . "
             "?mention a legal:ReferenceMention ; legal:occursIn ?passage ; "
-            "legal:referencesProvision ?target . "
-            "?target legal:sectionNumber ?target_id . "
+            "legal:referencesProvision ?target_provision . "
             "FILTER(?act = ?document && ?target_id = ?requested_section) "
             "} ORDER BY ?section_order ?section_suffix",
             {
                 "document": self._act(resolved_id),
+                "target_provision": self._provision(resolved_id, section_id),
                 "requested_section": Literal(section_id),
             },
         )
@@ -350,33 +354,129 @@ class KnowledgeGraph:
     def find_sections(
         self, query: str, document_id: str | None = None
     ) -> list[dict]:
-        needle = query.strip().lower()
+        needle = query.strip()
         if not needle:
             return []
 
-        matches = []
-        for section in self.list_sections(document_id):
-            data = self.get_section(section["section_id"], section["document_id"])
-            if data is None:
-                continue
+        document_filter = ""
+        bindings = {"needle": Literal(needle)}
+        if document_id is not None:
+            resolved_id = self._resolve_document_id(document_id)
+            document_filter = "FILTER(?document = ?requested_document) "
+            bindings["requested_document"] = self._act(resolved_id)
 
-            combined = f"{data['title']}\n{data['text']}"
-            index = combined.lower().find(needle)
-            if index == -1:
-                continue
+        direct_rows = run_select(
+            self.graph,
+            QUERY_PREFIXES
+            + "SELECT DISTINCT ?document ?document_title ?source_url "
+            "?section_id ?title ?text "
+            "(xsd:integer(REPLACE(STR(?section_id), "
+            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
+            "(UCASE(REPLACE(STR(?section_id), \"^[0-9]+\", \"\")) "
+            "AS ?section_suffix) WHERE { "
+            "?document a legal:Act ; legal:title ?document_title ; "
+            "legal:hasProvision ?provision . "
+            "?provision a legal:Provision ; legal:sectionNumber ?section_id ; "
+            "legal:sectionTitle ?title ; legal:containsPassage ?passage . "
+            "?passage a legal:TextPassage ; legal:text ?text . "
+            "OPTIONAL { ?document legal:sourceURL ?source_url } "
+            f"{document_filter}"
+            "FILTER(CONTAINS(LCASE(STR(?section_id)), LCASE(STR(?needle))) || "
+            "CONTAINS(LCASE(STR(?title)), LCASE(STR(?needle))) || "
+            "CONTAINS(LCASE(STR(?text)), LCASE(STR(?needle)))) "
+            "} ORDER BY STR(?document) ?section_order ?section_suffix",
+            bindings,
+        )
 
-            start = max(0, index - 60)
-            end = min(len(combined), index + len(needle) + 140)
-            snippet = re.sub(r"\s+", " ", combined[start:end]).strip()
-            matches.append(
-                {
-                    "document_id": data["document_id"],
-                    "document_title": data["document_title"],
-                    "source_url": data["source_url"],
-                    "section_id": data["section_id"],
-                    "title": data["title"],
-                    "snippet": snippet,
-                }
+        related_rows = run_select(
+            self.graph,
+            QUERY_PREFIXES
+            + "SELECT DISTINCT ?document ?document_title ?source_url "
+            "?section_id ?title ?text ?related_via "
+            "(xsd:integer(REPLACE(STR(?section_id), "
+            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
+            "(UCASE(REPLACE(STR(?section_id), \"^[0-9]+\", \"\")) "
+            "AS ?section_suffix) "
+            "(IF(?related_via = \"references\", 0, 1) AS ?relation_order) "
+            "WHERE { "
+            "?document a legal:Act ; legal:title ?document_title ; "
+            "legal:hasProvision ?matched . "
+            "OPTIONAL { ?document legal:sourceURL ?source_url } "
+            "?matched a legal:Provision ; legal:sectionNumber ?matched_id ; "
+            "legal:sectionTitle ?matched_title ; legal:containsPassage ?matched_passage . "
+            "?matched_passage legal:text ?matched_text . "
+            "FILTER(CONTAINS(LCASE(STR(?matched_id)), LCASE(STR(?needle))) || "
+            "CONTAINS(LCASE(STR(?matched_title)), LCASE(STR(?needle))) || "
+            "CONTAINS(LCASE(STR(?matched_text)), LCASE(STR(?needle)))) "
+            f"{document_filter}"
+            "{ "
+            "?mention a legal:ReferenceMention ; legal:occursIn ?matched_passage ; "
+            "legal:referencesProvision ?related . "
+            "BIND(\"references\" AS ?related_via) "
+            "} UNION { "
+            "?mention a legal:ReferenceMention ; legal:referencesProvision ?matched ; "
+            "legal:occursIn ?related_passage . "
+            "?related legal:containsPassage ?related_passage . "
+            "BIND(\"referenced_by\" AS ?related_via) "
+            "} "
+            "?document legal:hasProvision ?related . "
+            "?related a legal:Provision ; legal:sectionNumber ?section_id ; "
+            "legal:sectionTitle ?title ; legal:containsPassage ?passage . "
+            "?passage legal:text ?text . "
+            "FILTER(?related != ?matched) "
+            "} ORDER BY STR(?document) ?section_order ?section_suffix ?relation_order",
+            bindings,
+        )
+
+        direct_results = []
+        direct_keys = set()
+        for row in direct_rows:
+            key = (_local_name(row["document"]), row["section_id"])
+            direct_keys.add(key)
+            direct_results.append(
+                self._search_result(row, needle, "direct", None)
             )
 
-        return matches
+        related_results = []
+        seen_related = set(direct_keys)
+        for row in related_rows:
+            key = (_local_name(row["document"]), row["section_id"])
+            if key in seen_related:
+                continue
+            seen_related.add(key)
+            related_results.append(
+                self._search_result(
+                    row, needle, "related", row["related_via"]
+                )
+            )
+
+        return direct_results + related_results
+
+    @staticmethod
+    def _search_result(
+        row: dict,
+        query: str,
+        match_type: str,
+        related_via: str | None,
+    ) -> dict:
+        title = row["title"] or ""
+        text = row["text"] or ""
+        combined = f"{title}\n{text}"
+        index = combined.lower().find(query.lower())
+        if match_type == "direct" and index >= 0:
+            start = max(0, index - 60)
+            end = min(len(combined), index + len(query) + 140)
+            snippet = combined[start:end]
+        else:
+            snippet = f"{title} {text[:200]}"
+
+        return {
+            "document_id": _local_name(row["document"]),
+            "document_title": row["document_title"] or "",
+            "source_url": row.get("source_url"),
+            "section_id": row["section_id"],
+            "title": title,
+            "snippet": re.sub(r"\s+", " ", snippet).strip(),
+            "match_type": match_type,
+            "related_via": related_via,
+        }
