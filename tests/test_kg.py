@@ -171,6 +171,13 @@ def test_find_sections_searches_all_documents_and_can_filter(kg):
     ]
     assert [section["match_type"] for section in filtered] == ["direct"]
 
+    id_only = kg.find_sections("99", "example-act-b")
+    assert [(item["section_id"], item["match_type"]) for item in id_only] == [
+        ("99", "direct")
+    ]
+    assert "Only in Act B" in id_only[0]["snippet"]
+    assert "This section is only in Act B." in id_only[0]["snippet"]
+
     inbound = kg.find_sections("Procedure", "example-act-a")
     assert [(item["section_id"], item["match_type"]) for item in inbound] == [
         ("53-O", "direct"),

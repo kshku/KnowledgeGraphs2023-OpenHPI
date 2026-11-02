@@ -81,7 +81,7 @@ def kg(tmp_path):
             "example-act-b",
             "99",
             "Only in Act B",
-            "99. Only in Act B.—This must not resolve from Act A.",
+            "This section is only in Act B.",
             10,
         ),
     ]:
