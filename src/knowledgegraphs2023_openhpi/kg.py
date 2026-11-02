@@ -15,29 +15,11 @@ QUERY_PREFIXES = (
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
 )
-SECTION_ID_PATTERN = re.compile(r"(?P<number>\d+)(?P<suffix>-?[A-Za-z]*)")
-
-
-def _reference_index(mention: URIRef) -> int:
-    match = re.search(r"Reference(\d+)$", str(mention))
-    return int(match.group(1)) if match else 0
-
-
 def _local_name(term) -> str:
     if term is None:
         return ""
 
     return str(term).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
-
-
-def _section_sort_key(section_id: str) -> tuple[int, str, str]:
-    match = SECTION_ID_PATTERN.fullmatch(section_id)
-    if match is None:
-        return (0, section_id.casefold(), section_id)
-
-    suffix = match.group("suffix").replace("-", "").upper()
-    return (int(match.group("number")), suffix, section_id)
-
 
 class KnowledgeGraph:
     """Read-only facade over the generated RDF graph."""
@@ -255,28 +237,38 @@ class KnowledgeGraph:
         self, section_id: str, document_id: str | None = None
     ) -> dict | None:
         resolved_id = self._resolve_document_id(document_id)
-        if not self.section_exists(section_id, resolved_id):
+        rows = run_select(
+            self.graph,
+            QUERY_PREFIXES
+            + "SELECT ?act ?document_title ?source_url ?section_id ?title "
+            "?text ?page WHERE { "
+            "?act a legal:Act ; legal:title ?document_title ; "
+            "legal:hasProvision ?provision . "
+            "?provision a legal:Provision ; legal:sectionNumber ?section_id ; "
+            "legal:sectionTitle ?title ; legal:containsPassage ?passage . "
+            "?passage a legal:TextPassage ; legal:text ?text . "
+            "OPTIONAL { ?act legal:sourceURL ?source_url } "
+            "OPTIONAL { ?passage legal:pageNumber ?page } "
+            "FILTER(?act = ?document && ?section_id = ?requested_section) "
+            "} LIMIT 1",
+            {
+                "document": self._act(resolved_id),
+                "requested_section": Literal(section_id),
+            },
+        )
+        if not rows:
             return None
 
-        document = next(
-            item
-            for item in self._documents()
-            if item["document_id"] == resolved_id
-        )
-        provision = self._provision(resolved_id, section_id)
-        passage = self.graph.value(provision, LEGAL.containsPassage)
-        text = self.graph.value(passage, LEGAL.text) if passage else None
-        page = self.graph.value(passage, LEGAL.pageNumber) if passage else None
-        title = self.graph.value(provision, LEGAL.sectionTitle)
+        row = rows[0]
 
         return {
-            "document_id": document["document_id"],
-            "document_title": document["title"],
-            "source_url": document["source_url"],
-            "section_id": section_id,
-            "title": str(title or ""),
-            "text": str(text or ""),
-            "start_page": int(page) if page is not None else None,
+            "document_id": _local_name(row["act"]),
+            "document_title": row["document_title"] or "",
+            "source_url": row.get("source_url"),
+            "section_id": row["section_id"],
+            "title": row["title"] or "",
+            "text": row["text"] or "",
+            "start_page": int(row["page"]) if row.get("page") else None,
             "references": self.get_references(section_id, resolved_id),
             "referenced_by": self.get_referenced_by(section_id, resolved_id),
         }
@@ -285,72 +277,66 @@ class KnowledgeGraph:
         self, section_id: str, document_id: str | None = None
     ) -> list[dict]:
         resolved_id = self._resolve_document_id(document_id)
-        if not self.section_exists(section_id, resolved_id):
-            return []
-
-        provision = self._provision(resolved_id, section_id)
-        passage = self.graph.value(provision, LEGAL.containsPassage)
-        if passage is None:
-            return []
-
-        mentions = sorted(
-            self.graph.subjects(LEGAL.occursIn, passage),
-            key=_reference_index,
+        rows = run_select(
+            self.graph,
+            QUERY_PREFIXES
+            + "SELECT ?reference_text ?status ?target_id ?external_law "
+            "(xsd:integer(REPLACE(STR(?mention), "
+            "\".*Reference([0-9]+)$\", \"$1\")) AS ?reference_order) "
+            "WHERE { "
+            "?act a legal:Act ; legal:hasProvision ?source . "
+            "?source legal:sectionNumber ?source_id ; "
+            "legal:containsPassage ?passage . "
+            "?mention a legal:ReferenceMention ; legal:occursIn ?passage ; "
+            "legal:referenceText ?reference_text ; "
+            "legal:resolutionStatus ?status . "
+            "OPTIONAL { ?mention legal:referencesProvision ?target . "
+            "?target legal:sectionNumber ?target_id } "
+            "OPTIONAL { ?mention legal:externalLaw ?external_law } "
+            "FILTER(?act = ?document && ?source_id = ?requested_section) "
+            "} ORDER BY ?reference_order",
+            {
+                "document": self._act(resolved_id),
+                "requested_section": Literal(section_id),
+            },
         )
-        references = []
-
-        for mention in mentions:
-            target = self.graph.value(mention, LEGAL.referencesProvision)
-            target_id = None
-            if target is not None:
-                value = self.graph.value(target, LEGAL.sectionNumber)
-                if value is not None:
-                    target_id = str(value)
-
-            external_law = self.graph.value(mention, LEGAL.externalLaw)
-            references.append(
-                {
-                    "reference_text": str(
-                        self.graph.value(mention, LEGAL.referenceText) or ""
-                    ),
-                    "status": str(
-                        self.graph.value(mention, LEGAL.resolutionStatus) or ""
-                    ),
-                    "target": target_id,
-                    "external_law": (
-                        str(external_law)
-                        if external_law is not None
-                        else None
-                    ),
-                }
-            )
-
-        return references
+        return [
+            {
+                "reference_text": row["reference_text"] or "",
+                "status": row["status"] or "",
+                "target": row.get("target_id"),
+                "external_law": row.get("external_law"),
+            }
+            for row in rows
+        ]
 
     def get_referenced_by(
         self, section_id: str, document_id: str | None = None
     ) -> list[str]:
         resolved_id = self._resolve_document_id(document_id)
-        if not self.section_exists(section_id, resolved_id):
-            return []
-
-        target = self._provision(resolved_id, section_id)
-        act = self._act(resolved_id)
-        sources = set()
-
-        for mention in self.graph.subjects(LEGAL.referencesProvision, target):
-            passage = self.graph.value(mention, LEGAL.occursIn)
-            if passage is None:
-                continue
-
-            for provision in self.graph.subjects(LEGAL.containsPassage, passage):
-                if (act, LEGAL.hasProvision, provision) not in self.graph:
-                    continue
-                source_id = self.graph.value(provision, LEGAL.sectionNumber)
-                if source_id is not None:
-                    sources.add(str(source_id))
-
-        return sorted(sources, key=_section_sort_key)
+        rows = run_select(
+            self.graph,
+            QUERY_PREFIXES
+            + "SELECT DISTINCT ?source_id "
+            "(xsd:integer(REPLACE(STR(?source_id), "
+            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
+            "(UCASE(REPLACE(STR(?source_id), \"^[0-9]+\", \"\")) "
+            "AS ?section_suffix) WHERE { "
+            "?act a legal:Act ; legal:hasProvision ?source ; "
+            "legal:hasProvision ?target . "
+            "?source legal:sectionNumber ?source_id ; "
+            "legal:containsPassage ?passage . "
+            "?mention a legal:ReferenceMention ; legal:occursIn ?passage ; "
+            "legal:referencesProvision ?target . "
+            "?target legal:sectionNumber ?target_id . "
+            "FILTER(?act = ?document && ?target_id = ?requested_section) "
+            "} ORDER BY ?section_order ?section_suffix",
+            {
+                "document": self._act(resolved_id),
+                "requested_section": Literal(section_id),
+            },
+        )
+        return [row["source_id"] for row in rows]
 
     def get_external_references(
         self, section_id: str, document_id: str | None = None

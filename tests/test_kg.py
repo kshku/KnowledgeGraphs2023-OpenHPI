@@ -100,7 +100,7 @@ def test_get_schema(kg):
     }
 
 
-def test_metadata_and_section_listing_use_sparql_not_graph_traversal(
+def test_runtime_kg_retrieval_uses_sparql_not_graph_traversal(
     monkeypatch, kg
 ):
     def fail_if_traversed(*args, **kwargs):
@@ -115,6 +115,11 @@ def test_metadata_and_section_listing_use_sparql_not_graph_traversal(
     assert len(kg.list_documents()) == 2
     assert len(kg.list_sections()) == 5
     assert kg.section_exists("53-O", "example-act-a") is True
+    assert kg.get_section("53-O", "example-act-a")["title"] == (
+        "Procedure and powers"
+    )
+    assert kg.get_references("2", "example-act-a")[0]["target"] == "2A"
+    assert kg.get_referenced_by("2", "example-act-a") == ["2A"]
 
 
 def test_missing_schema_is_reported(monkeypatch, tmp_path, kg):
