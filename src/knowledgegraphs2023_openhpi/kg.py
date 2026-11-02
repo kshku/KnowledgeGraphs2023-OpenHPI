@@ -1,12 +1,20 @@
 import re
 from pathlib import Path
 
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
 
 from . import config
+from .sparql import run_ask, run_select
 
 LEGAL = Namespace(f"{config.ONTOLOGY_IRI}#")
+QUERY_PREFIXES = (
+    f"PREFIX legal: <{config.ONTOLOGY_IRI}#>\n"
+    "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+)
 SECTION_ID_PATTERN = re.compile(r"(?P<number>\d+)(?P<suffix>-?[A-Za-z]*)")
 
 
@@ -50,39 +58,24 @@ class KnowledgeGraph:
             self.schema_loaded = True
 
     def _act(self, document_id: str) -> URIRef:
-        for act in self.graph.subjects(RDF.type, LEGAL.Act):
-            if _local_name(act) == document_id:
-                return act
-        raise ValueError(f"Unknown document ID: {document_id}")
+        return LEGAL[document_id]
 
     def _documents(self) -> list[dict]:
-        documents = []
-
-        for act in self.graph.subjects(RDF.type, LEGAL.Act):
-            document_id = _local_name(act)
-            title = self.graph.value(act, LEGAL.title)
-            source_url = self.graph.value(act, LEGAL.sourceURL)
-            provisions = set(self.graph.objects(act, LEGAL.hasProvision))
-            documents.append(
-                {
-                    "document_id": document_id,
-                    "title": str(title or ""),
-                    "source_url": str(source_url) if source_url else None,
-                    "section_count": len(provisions),
-                }
-            )
-
-        return sorted(documents, key=lambda item: item["document_id"])
+        return self.list_documents()
 
     def _resolve_document_id(self, document_id: str | None) -> str:
-        documents = self._documents()
-        known_ids = {item["document_id"] for item in documents}
-
         if document_id is not None:
-            if document_id not in known_ids:
+            exists = run_ask(
+                self.graph,
+                QUERY_PREFIXES
+                + "ASK { ?act a legal:Act . FILTER(?act = ?document) }",
+                {"document": self._act(document_id)},
+            )
+            if not exists:
                 raise ValueError(f"Unknown document ID: {document_id}")
             return document_id
 
+        documents = self.list_documents()
         if len(documents) == 1:
             return documents[0]["document_id"]
         if not documents:
@@ -95,156 +88,168 @@ class KnowledgeGraph:
         return LEGAL[f"{document_id}_Section{section_id}"]
 
     def _namespace(self) -> str:
-        for term in self.schema.subjects(RDF.type, OWL.Class):
-            text = str(term)
-            separator = "#" if "#" in text else "/"
-            return text.rsplit(separator, 1)[0] + separator
-
         return f"{config.ONTOLOGY_IRI}#"
 
     def get_schema(self) -> dict:
         """Describe the ontology and the size of the instance graph."""
 
         def properties(property_type) -> list[dict]:
-            items = []
-
-            for prop in self.schema.subjects(RDF.type, property_type):
-                items.append(
-                    {
-                        "name": _local_name(prop),
-                        "domain": _local_name(
-                            self.schema.value(prop, RDFS.domain)
-                        ),
-                        "range": _local_name(
-                            self.schema.value(prop, RDFS.range)
-                        ),
-                    }
-                )
-
-            return sorted(items, key=lambda item: item["name"])
-
-        subclasses = [
-            {
-                "class": _local_name(child),
-                "subclass_of": _local_name(parent),
-            }
-            for child in self.schema.subjects(
-                RDF.type, OWL.Class
+            rows = run_select(
+                self.schema,
+                QUERY_PREFIXES
+                + "SELECT DISTINCT ?property ?domain ?range WHERE { "
+                "?property a ?property_type . "
+                "OPTIONAL { ?property rdfs:domain ?domain } "
+                "OPTIONAL { ?property rdfs:range ?range } "
+                "} ORDER BY ?property",
+                {"property_type": property_type},
             )
-            for parent in self.schema.objects(child, RDFS.subClassOf)
-            if isinstance(child, URIRef) and isinstance(parent, URIRef)
-        ]
+            return [
+                {
+                    "name": _local_name(row["property"]),
+                    "domain": _local_name(row.get("domain")),
+                    "range": _local_name(row.get("range")),
+                }
+                for row in rows
+            ]
 
-        subproperties = [
-            {
-                "property": _local_name(prop),
-                "subproperty_of": _local_name(parent),
-            }
-            for prop in set(
-                self.schema.subjects(RDF.type, OWL.ObjectProperty)
+        classes = run_select(
+            self.schema,
+            QUERY_PREFIXES
+            + "SELECT DISTINCT ?class WHERE { ?class a owl:Class } "
+            "ORDER BY ?class",
+        )
+        subclasses = run_select(
+            self.schema,
+            QUERY_PREFIXES
+            + "SELECT DISTINCT ?class ?parent WHERE { "
+            "?class a owl:Class ; rdfs:subClassOf ?parent . "
+            "} ORDER BY ?class ?parent",
+        )
+        subproperties = run_select(
+            self.schema,
+            QUERY_PREFIXES
+            + "SELECT DISTINCT ?property ?parent WHERE { "
+            "VALUES ?kind { owl:ObjectProperty owl:DatatypeProperty } "
+            "?property a ?kind ; rdfs:subPropertyOf ?parent . "
+            "FILTER(?parent != owl:topObjectProperty && "
+            "?parent != owl:topDataProperty) "
+            "} ORDER BY ?property ?parent",
+        )
+
+        def instance_count(class_uri: URIRef) -> int:
+            [row] = run_select(
+                self.graph,
+                QUERY_PREFIXES
+                + "SELECT (COUNT(DISTINCT ?instance) AS ?count) WHERE { "
+                "?instance a ?class }",
+                {"class": class_uri},
             )
-            | set(
-                self.schema.subjects(RDF.type, OWL.DatatypeProperty)
-            )
-            for parent in self.schema.objects(prop, RDFS.subPropertyOf)
-            if isinstance(parent, URIRef)
-            and _local_name(parent)
-            not in {"topObjectProperty", "topDataProperty"}
-        ]
+            return int(row["count"] or 0)
 
         counts = {
-            "provisions": len(
-                set(self.graph.subjects(RDF.type, LEGAL.Provision))
-            ),
-            "text_passages": len(
-                set(self.graph.subjects(RDF.type, LEGAL.TextPassage))
-            ),
-            "reference_mentions": len(
-                set(
-                    self.graph.subjects(
-                        RDF.type, LEGAL.ReferenceMention
-                    )
-                )
-            ),
+            "provisions": instance_count(LEGAL.Provision),
+            "text_passages": instance_count(LEGAL.TextPassage),
+            "reference_mentions": instance_count(LEGAL.ReferenceMention),
         }
 
         return {
             "schema_loaded": self.schema_loaded,
             "prefixes": {"legal": self._namespace()},
-            "classes": sorted(
-                _local_name(term)
-                for term in self.schema.subjects(RDF.type, OWL.Class)
-            ),
+            "classes": [_local_name(row["class"]) for row in classes],
             "object_properties": properties(OWL.ObjectProperty),
             "datatype_properties": properties(OWL.DatatypeProperty),
             "hierarchy": {
-                "subclasses": sorted(
-                    subclasses,
-                    key=lambda item: (
-                        item["class"],
-                        item["subclass_of"],
-                    ),
-                ),
-                "subproperties": sorted(
-                    subproperties,
-                    key=lambda item: (
-                        item["property"],
-                        item["subproperty_of"],
-                    ),
-                ),
+                "subclasses": [
+                    {
+                        "class": _local_name(row["class"]),
+                        "subclass_of": _local_name(row["parent"]),
+                    }
+                    for row in subclasses
+                ],
+                "subproperties": [
+                    {
+                        "property": _local_name(row["property"]),
+                        "subproperty_of": _local_name(row["parent"]),
+                    }
+                    for row in subproperties
+                ],
             },
             "counts": counts,
         }
 
     def list_documents(self) -> list[dict]:
-        return self._documents()
+        rows = run_select(
+            self.graph,
+            QUERY_PREFIXES
+            + "SELECT ?act ?title ?source_url "
+            "(COUNT(DISTINCT ?provision) AS ?section_count) WHERE { "
+            "?act a legal:Act ; legal:title ?title ; "
+            "legal:hasProvision ?provision . "
+            "OPTIONAL { ?act legal:sourceURL ?source_url } "
+            "} GROUP BY ?act ?title ?source_url ORDER BY ?act",
+        )
+        return [
+            {
+                "document_id": _local_name(row["act"]),
+                "title": row["title"] or "",
+                "source_url": row.get("source_url"),
+                "section_count": int(row["section_count"] or 0),
+            }
+            for row in rows
+        ]
 
     def section_exists(
         self, section_id: str, document_id: str | None = None
     ) -> bool:
         resolved_id = self._resolve_document_id(document_id)
-        return (
-            self._provision(resolved_id, section_id),
-            RDF.type,
-            LEGAL.Provision,
-        ) in self.graph
+        return run_ask(
+            self.graph,
+            QUERY_PREFIXES
+            + "ASK { ?act a legal:Act ; legal:hasProvision ?provision . "
+            "?provision a legal:Provision ; legal:sectionNumber ?section_id . "
+            "FILTER(?act = ?document && ?section_id = ?requested_section) }",
+            {
+                "document": self._act(resolved_id),
+                "requested_section": Literal(section_id),
+            },
+        )
 
     def list_sections(self, document_id: str | None = None) -> list[dict]:
-        documents = self._documents()
+        filter_document = ""
+        bindings = {}
         if document_id is not None:
             resolved_id = self._resolve_document_id(document_id)
-            documents = [
-                item for item in documents if item["document_id"] == resolved_id
-            ]
+            filter_document = "FILTER(?act = ?requested_document) "
+            bindings["requested_document"] = self._act(resolved_id)
 
-        sections = []
-        for document in documents:
-            act = self._act(document["document_id"])
-            for provision in self.graph.objects(act, LEGAL.hasProvision):
-                section_value = self.graph.value(
-                    provision, LEGAL.sectionNumber
-                )
-                if section_value is None:
-                    continue
-
-                title = self.graph.value(provision, LEGAL.sectionTitle)
-                sections.append(
-                    {
-                        "document_id": document["document_id"],
-                        "document_title": document["title"],
-                        "source_url": document["source_url"],
-                        "section_id": str(section_value),
-                        "title": str(title or ""),
-                    }
-                )
-
-        return sorted(
-            sections,
-            key=lambda section: (
-                section["document_id"],
-                _section_sort_key(section["section_id"]),
-            ),
+        rows = run_select(
+            self.graph,
+            QUERY_PREFIXES
+            + "SELECT ?act ?document_title ?source_url ?section_id ?title "
+            "(xsd:integer(REPLACE(STR(?section_id), "
+            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
+            "(UCASE(REPLACE(STR(?section_id), \"^[0-9]+\", \"\")) "
+            "AS ?section_suffix) WHERE { "
+            "?act a legal:Act ; legal:title ?document_title ; "
+            "legal:hasProvision ?provision . "
+            "?provision a legal:Provision ; legal:sectionNumber ?section_id ; "
+            "legal:sectionTitle ?title . "
+            "OPTIONAL { ?act legal:sourceURL ?source_url } "
+            f"{filter_document}"
+            "} ORDER BY STR(?act) ?section_order ?section_suffix",
+            bindings,
         )
+        return [
+            {
+                "document_id": _local_name(row["act"]),
+                "document_title": row["document_title"] or "",
+                "source_url": row.get("source_url"),
+                "section_id": row["section_id"],
+                "title": row["title"] or "",
+            }
+            for row in rows
+        ]
 
     def get_section(
         self, section_id: str, document_id: str | None = None

@@ -100,6 +100,23 @@ def test_get_schema(kg):
     }
 
 
+def test_metadata_and_section_listing_use_sparql_not_graph_traversal(
+    monkeypatch, kg
+):
+    def fail_if_traversed(*args, **kwargs):
+        raise AssertionError("runtime retrieval must use SPARQL")
+
+    for graph in (kg.graph, kg.schema):
+        monkeypatch.setattr(graph, "subjects", fail_if_traversed)
+        monkeypatch.setattr(graph, "objects", fail_if_traversed)
+        monkeypatch.setattr(graph, "value", fail_if_traversed)
+
+    assert len(kg.get_schema()["classes"]) == 4
+    assert len(kg.list_documents()) == 2
+    assert len(kg.list_sections()) == 5
+    assert kg.section_exists("53-O", "example-act-a") is True
+
+
 def test_missing_schema_is_reported(monkeypatch, tmp_path, kg):
     monkeypatch.setattr(
         "knowledgegraphs2023_openhpi.kg.config.ONTOLOGY_SCHEMA_PATH",
