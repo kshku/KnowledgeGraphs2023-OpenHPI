@@ -1,3 +1,5 @@
+from time import perf_counter
+
 from rdflib import Namespace
 
 from knowledgegraphs2023_openhpi import config
@@ -105,3 +107,31 @@ def test_generated_graph_resolves_reviewed_inserted_section_ids():
         reference["target"] == "20-I" and reference["status"] == "resolved"
         for reference in kg.get_references("20H", "railways-act-1989")
     )
+
+
+def test_generated_graph_search_stays_fast_and_naturally_ordered():
+    kg = KnowledgeGraph(config.GENERATED_ONTOLOGY_PATH)
+
+    started = perf_counter()
+    results = kg.find_sections("refund")
+    elapsed = perf_counter() - started
+
+    assert results
+    assert elapsed < 15
+    assert {result["match_type"] for result in results} <= {
+        "direct",
+        "related",
+    }
+
+    competition_53 = [
+        section["section_id"]
+        for section in kg.list_sections("competition-act-2002")
+        if section["section_id"].startswith("53")
+    ]
+    assert competition_53[:5] == ["53", "53A", "53B", "53C", "53D"]
+    assert "53-I" in competition_53
+    assert competition_53.index("53H") < competition_53.index("53-I")
+    assert competition_53.index("53-I") < competition_53.index("53J")
+    assert competition_53.index("53N") < competition_53.index("53-O")
+    assert competition_53.index("53-O") < competition_53.index("53P")
+    assert competition_53.index("53R") < competition_53.index("53-S")

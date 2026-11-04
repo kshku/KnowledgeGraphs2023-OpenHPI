@@ -23,9 +23,14 @@ knowledge graph, using only the tools provided to you.
    reference and its status. External laws are supporting context, not
    provisions of the source Act. Do not assume references between loaded Acts
    have been linked.
-7. The graph is read-only. Never attempt to modify it, and never use SPARQL
+7. Treat `kg_find_sections` results with `match_type="direct"` as direct text,
+   title, or section-ID matches. Results with `match_type="related"` are
+   one-hop citation neighbors; identify them as related context, not as direct
+   evidence for the user's wording. The graph has no synonym/alias data, so do
+   not claim that it inferred synonyms.
+8. The graph is read-only. Never attempt to modify it, and never use SPARQL
    update keywords.
-8. Before using `kg_sparql`, call `kg_get_schema` to learn the class and
+9. Before using `kg_sparql`, call `kg_get_schema` to learn the class and
    property names. Use the returned `legal` prefix with the returned class
    and property names; do not guess names or construct IRIs another way.
 
@@ -42,7 +47,8 @@ knowledge graph, using only the tools provided to you.
 - `kg_list_documents` — loaded Acts, IDs, source URLs, and section counts.
 - `kg_list_sections` — section IDs/titles in one Act or across all Acts.
 - `kg_get_section` — Act identity, section title/text/page, and references.
-- `kg_find_sections` — search titles and text across or within Acts.
+- `kg_find_sections` — SPARQL search over section IDs, titles and text, plus
+  one-hop citation-related provisions marked as related.
 - `kg_get_references` — references made by a section.
 - `kg_get_referenced_by` — same-Act sections that cite a section.
 - `kg_sparql` — read-only SPARQL for questions the typed tools cannot express.

@@ -1,6 +1,8 @@
 import re
+from collections.abc import Mapping
 
 from rdflib import Graph
+from rdflib.term import Identifier
 
 READ_FORMS = ("SELECT", "ASK", "CONSTRUCT", "DESCRIBE")
 
@@ -46,13 +48,51 @@ def _term(value) -> str | None:
     return None if value is None else str(value)
 
 
+def _execute(
+    graph: Graph,
+    query: str,
+    bindings: Mapping[str, Identifier] | None = None,
+):
+    validate_read_only(query)
+    return graph.query(query, initBindings=bindings or {})
+
+
+def run_select(
+    graph: Graph,
+    query: str,
+    bindings: Mapping[str, Identifier] | None = None,
+) -> list[dict[str, str | None]]:
+    """Run a bound read-only SELECT and return JSON-friendly rows."""
+    result = _execute(graph, query, bindings)
+    if result.type != "SELECT":
+        raise ValueError("run_select requires a SPARQL SELECT query")
+
+    return [
+        {
+            str(variable): _term(row[variable])
+            for variable in result.vars
+        }
+        for row in result
+    ]
+
+
+def run_ask(
+    graph: Graph,
+    query: str,
+    bindings: Mapping[str, Identifier] | None = None,
+) -> bool:
+    """Run a bound read-only ASK query."""
+    result = _execute(graph, query, bindings)
+    if result.type != "ASK":
+        raise ValueError("run_ask requires a SPARQL ASK query")
+    return bool(result.askAnswer)
+
+
 def run_query(
     graph: Graph, query: str, limit: int = 50
 ) -> dict:
     """Run a read-only query and return JSON-friendly results."""
-    validate_read_only(query)
-
-    result = graph.query(query)
+    result = _execute(graph, query)
 
     if result.type == "ASK":
         return {"ask": bool(result.askAnswer)}
