@@ -65,6 +65,27 @@ def kg(tmp_path):
         ),
         (
             "example-act-a",
+            "10",
+            "Appeals",
+            "10. Appeals.—Neutral appeal text.",
+            11,
+        ),
+        (
+            "example-act-a",
+            "53A",
+            "Powers",
+            "53A. Powers.—Neutral powers text.",
+            12,
+        ),
+        (
+            "example-act-a",
+            "53-I",
+            "Inspection",
+            "53-I. Inspection.—Neutral inspection text.",
+            13,
+        ),
+        (
+            "example-act-a",
             "53-O",
             "Procedure and powers",
             "53-O. Procedure and powers.—Body for 53-O.",
@@ -92,6 +113,7 @@ def kg(tmp_path):
         ("example-act-a", "2", 2, "section 53-O", "resolved", "53-O"),
         ("example-act-a", "2", 3, "section 99", "unresolved", None),
         ("example-act-a", "2A", 1, "section 2", "resolved", "2"),
+        ("example-act-b", "99", 1, "section 2", "resolved", "2"),
     ]
     for document_id, source_id, index, text, status, target_id in references:
         mention = LEGAL[
@@ -115,6 +137,15 @@ def kg(tmp_path):
                     LEGAL[f"{document_id}_Section{target_id}"],
                 )
             )
+
+    external = LEGAL["example-act-a_Section2_Reference4"]
+    graph.add((external, RDF.type, LEGAL.ReferenceMention))
+    graph.add((external, LEGAL.referenceText, Literal("the Evidence Act")))
+    graph.add((external, LEGAL.resolutionStatus, Literal("external")))
+    graph.add((external, LEGAL.externalLaw, Literal("Indian Evidence Act, 1872")))
+    graph.add(
+        (external, LEGAL.occursIn, LEGAL["example-act-a_Section2_Passage1"])
+    )
 
     path = tmp_path / "kg.rdf"
     graph.serialize(destination=path, format="xml")

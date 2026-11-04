@@ -7,7 +7,7 @@ def test_list_documents(kg):
             "document_id": "example-act-a",
             "title": "Example Act A",
             "source_url": "https://example.org/a",
-            "section_count": 3,
+            "section_count": 6,
         },
         {
             "document_id": "example-act-b",
@@ -27,6 +27,9 @@ def test_list_sections_includes_document_identity_and_string_ids(kg):
     ] == [
         ("example-act-a", "2"),
         ("example-act-a", "2A"),
+        ("example-act-a", "10"),
+        ("example-act-a", "53A"),
+        ("example-act-a", "53-I"),
         ("example-act-a", "53-O"),
         ("example-act-b", "2"),
         ("example-act-b", "99"),
@@ -36,7 +39,7 @@ def test_list_sections_includes_document_identity_and_string_ids(kg):
     assert [
         section["section_id"]
         for section in kg.list_sections("example-act-a")
-    ] == ["2", "2A", "53-O"]
+    ] == ["2", "2A", "10", "53A", "53-I", "53-O"]
 
 
 def test_get_section_is_document_scoped_and_unknown_section_is_none(kg):
@@ -58,6 +61,16 @@ def test_section_addressed_calls_require_document_when_ambiguous(kg):
     with pytest.raises(ValueError, match="Unknown document ID"):
         kg.get_section("2", "unknown-act")
 
+    for method in (
+        kg.get_references,
+        kg.get_referenced_by,
+        kg.get_external_references,
+    ):
+        with pytest.raises(ValueError, match="document_id is required"):
+            method("2")
+        with pytest.raises(ValueError, match="Unknown document ID"):
+            method("2", "unknown-act")
+
 
 def test_references_resolve_only_within_the_document(kg):
     references = kg.get_references("2", "example-act-a")
@@ -66,15 +79,20 @@ def test_references_resolve_only_within_the_document(kg):
         "2A",
         "53-O",
         None,
+        None,
     ]
     assert [reference["status"] for reference in references] == [
         "resolved",
         "resolved",
         "unresolved",
+        "external",
     ]
     assert kg.get_referenced_by("2", "example-act-a") == ["2A"]
     assert kg.get_referenced_by("2A", "example-act-a") == ["2"]
-    assert kg.get_external_references("2", "example-act-a") == []
+    assert kg.get_referenced_by("2", "example-act-b") == ["99"]
+    assert kg.get_external_references("2", "example-act-a") == [
+        "Indian Evidence Act, 1872"
+    ]
 
 
 def test_get_schema(kg):
@@ -94,9 +112,9 @@ def test_get_schema(kg):
         "range": "string",
     } in schema["datatype_properties"]
     assert schema["counts"] == {
-        "provisions": 5,
-        "text_passages": 5,
-        "reference_mentions": 4,
+        "provisions": 8,
+        "text_passages": 8,
+        "reference_mentions": 6,
     }
 
 
@@ -113,7 +131,7 @@ def test_runtime_kg_retrieval_uses_sparql_not_graph_traversal(
 
     assert len(kg.get_schema()["classes"]) == 4
     assert len(kg.list_documents()) == 2
-    assert len(kg.list_sections()) == 5
+    assert len(kg.list_sections()) == 8
     assert kg.section_exists("53-O", "example-act-a") is True
     assert kg.get_section("53-O", "example-act-a")["title"] == (
         "Procedure and powers"
@@ -135,7 +153,7 @@ def test_missing_schema_is_reported(monkeypatch, tmp_path, kg):
 
     assert schema["schema_loaded"] is False
     assert schema["classes"] == []
-    assert schema["counts"]["provisions"] == 5
+    assert schema["counts"]["provisions"] == 8
 
 
 def test_find_sections_searches_all_documents_and_can_filter(kg):
@@ -152,9 +170,13 @@ def test_find_sections_searches_all_documents_and_can_filter(kg):
         ("example-act-b", "2"),
     }
     assert [(section["document_id"], section["section_id"]) for section in related] == [
-        ("example-act-a", "53-O")
+        ("example-act-a", "53-O"),
+        ("example-act-b", "99"),
     ]
-    assert related[0]["related_via"] == "references"
+    assert [section["related_via"] for section in related] == [
+        "references",
+        "referenced_by",
+    ]
     assert "Procedure and powers" in related[0]["snippet"]
     assert len(
         [
@@ -167,16 +189,26 @@ def test_find_sections_searches_all_documents_and_can_filter(kg):
 
     filtered = kg.find_sections("definitions", "example-act-b")
     assert [section["document_id"] for section in filtered] == [
-        "example-act-b"
+        "example-act-b",
+        "example-act-b",
     ]
-    assert [section["match_type"] for section in filtered] == ["direct"]
+    assert [section["match_type"] for section in filtered] == [
+        "direct",
+        "related",
+    ]
 
     id_only = kg.find_sections("99", "example-act-b")
     assert [(item["section_id"], item["match_type"]) for item in id_only] == [
-        ("99", "direct")
+        ("99", "direct"),
+        ("2", "related"),
     ]
+    assert id_only[1]["related_via"] == "references"
     assert "Only in Act B" in id_only[0]["snippet"]
     assert "This section is only in Act B." in id_only[0]["snippet"]
+
+    ordered = kg.find_sections("neutral", "example-act-a")
+    assert [item["section_id"] for item in ordered] == ["10", "53A", "53-I"]
+    assert {item["match_type"] for item in ordered} == {"direct"}
 
     inbound = kg.find_sections("Procedure", "example-act-a")
     assert [(item["section_id"], item["match_type"]) for item in inbound] == [
@@ -191,3 +223,6 @@ def test_find_sections_searches_all_documents_and_can_filter(kg):
 def test_find_sections_binds_search_text_as_a_literal(kg):
     query = '" } UNION { ?s ?p ?o'
     assert kg.find_sections(query) == []
+
+    regex_query = r'[.*+?^${}()|\\] " } UNION { ?s ?p ?o'
+    assert kg.find_sections(regex_query) == []

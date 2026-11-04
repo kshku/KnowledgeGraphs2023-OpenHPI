@@ -15,11 +15,24 @@ QUERY_PREFIXES = (
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
 )
+
+
 def _local_name(term) -> str:
     if term is None:
         return ""
 
     return str(term).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
+
+
+def _section_order(variable: str) -> str:
+    """Build the projection and sort keys for natural section ordering."""
+    return (
+        f"(xsd:integer(REPLACE(STR({variable}), "
+        '"^([0-9]+).*$", "$1")) AS ?section_order) '
+        f'(UCASE(REPLACE(REPLACE(STR({variable}), "^[0-9]+", ""), '
+        '"-", "")) AS ?section_suffix) '
+    )
+
 
 class KnowledgeGraph:
     """Read-only facade over the generated RDF graph."""
@@ -70,6 +83,17 @@ class KnowledgeGraph:
         return LEGAL[f"{document_id}_Section{section_id}"]
 
     def _namespace(self) -> str:
+        rows = run_select(
+            self.schema,
+            QUERY_PREFIXES
+            + "SELECT ?class WHERE { ?class a owl:Class } "
+            "ORDER BY ?class LIMIT 1",
+        )
+        if rows:
+            text = rows[0]["class"]
+            separator = "#" if "#" in text else "/"
+            return text.rsplit(separator, 1)[0] + separator
+
         return f"{config.ONTOLOGY_IRI}#"
 
     def get_schema(self) -> dict:
@@ -166,9 +190,10 @@ class KnowledgeGraph:
             QUERY_PREFIXES
             + "SELECT ?act ?title ?source_url "
             "(COUNT(DISTINCT ?provision) AS ?section_count) WHERE { "
-            "?act a legal:Act ; legal:title ?title ; "
-            "legal:hasProvision ?provision . "
+            "?act a legal:Act . "
+            "OPTIONAL { ?act legal:title ?title } "
             "OPTIONAL { ?act legal:sourceURL ?source_url } "
+            "OPTIONAL { ?act legal:hasProvision ?provision } "
             "} GROUP BY ?act ?title ?source_url ORDER BY ?act",
         )
         return [
@@ -209,17 +234,16 @@ class KnowledgeGraph:
             self.graph,
             QUERY_PREFIXES
             + "SELECT ?act ?document_title ?source_url ?section_id ?title "
-            "(xsd:integer(REPLACE(STR(?section_id), "
-            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
-            "(UCASE(REPLACE(STR(?section_id), \"^[0-9]+\", \"\")) "
-            "AS ?section_suffix) WHERE { "
+            + _section_order("?section_id")
+            + "WHERE { "
             "?act a legal:Act ; legal:title ?document_title ; "
             "legal:hasProvision ?provision . "
             "?provision a legal:Provision ; legal:sectionNumber ?section_id ; "
             "legal:sectionTitle ?title . "
             "OPTIONAL { ?act legal:sourceURL ?source_url } "
             f"{filter_document}"
-            "} ORDER BY STR(?act) ?section_order ?section_suffix",
+            "} ORDER BY STR(?act) ?section_order ?section_suffix "
+            "STR(?section_id)",
             bindings,
         )
         return [
@@ -321,10 +345,8 @@ class KnowledgeGraph:
             self.graph,
             QUERY_PREFIXES
             + "SELECT DISTINCT ?source_id "
-            "(xsd:integer(REPLACE(STR(?source_id), "
-            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
-            "(UCASE(REPLACE(STR(?source_id), \"^[0-9]+\", \"\")) "
-            "AS ?section_suffix) WHERE { "
+            + _section_order("?source_id")
+            + "WHERE { "
             "?act a legal:Act ; legal:hasProvision ?target_provision ; "
             "legal:hasProvision ?source . "
             "?target_provision legal:sectionNumber ?target_id . "
@@ -333,7 +355,7 @@ class KnowledgeGraph:
             "?mention a legal:ReferenceMention ; legal:occursIn ?passage ; "
             "legal:referencesProvision ?target_provision . "
             "FILTER(?act = ?document && ?target_id = ?requested_section) "
-            "} ORDER BY ?section_order ?section_suffix",
+            "} ORDER BY ?section_order ?section_suffix STR(?source_id)",
             {
                 "document": self._act(resolved_id),
                 "target_provision": self._provision(resolved_id, section_id),
@@ -369,69 +391,71 @@ class KnowledgeGraph:
             self.graph,
             QUERY_PREFIXES
             + "SELECT DISTINCT ?document ?document_title ?source_url "
-            "?section_id ?title ?text "
-            "(xsd:integer(REPLACE(STR(?section_id), "
-            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
-            "(UCASE(REPLACE(STR(?section_id), \"^[0-9]+\", \"\")) "
-            "AS ?section_suffix) WHERE { "
-            "?document a legal:Act ; legal:title ?document_title ; "
-            "legal:hasProvision ?provision . "
-            "?provision a legal:Provision ; legal:sectionNumber ?section_id ; "
+            "?section_id ?title ?text ?provision "
+            + _section_order("?section_id")
+            + "WHERE { "
+            "?document legal:hasProvision ?provision . "
+            "?provision legal:sectionNumber ?section_id ; "
             "legal:sectionTitle ?title ; legal:containsPassage ?passage . "
-            "?passage a legal:TextPassage ; legal:text ?text . "
+            "?passage legal:text ?text . "
+            "OPTIONAL { ?document legal:title ?document_title } "
             "OPTIONAL { ?document legal:sourceURL ?source_url } "
+            "FILTER EXISTS { ?document a legal:Act } "
+            "FILTER EXISTS { ?provision a legal:Provision } "
+            "FILTER EXISTS { ?passage a legal:TextPassage } "
             f"{document_filter}"
             "FILTER(CONTAINS(LCASE(STR(?section_id)), LCASE(STR(?needle))) || "
             "CONTAINS(LCASE(STR(?title)), LCASE(STR(?needle))) || "
             "CONTAINS(LCASE(STR(?text)), LCASE(STR(?needle)))) "
-            "} ORDER BY STR(?document) ?section_order ?section_suffix",
+            "} ORDER BY STR(?document) ?section_order ?section_suffix "
+            "STR(?section_id)",
             bindings,
         )
 
-        related_rows = run_select(
-            self.graph,
-            QUERY_PREFIXES
-            + "SELECT DISTINCT ?document ?document_title ?source_url "
-            "?section_id ?title ?text ?related_via "
-            "(xsd:integer(REPLACE(STR(?section_id), "
-            "\"^([0-9]+).*$\", \"$1\")) AS ?section_order) "
-            "(UCASE(REPLACE(STR(?section_id), \"^[0-9]+\", \"\")) "
-            "AS ?section_suffix) "
-            "(IF(?related_via = \"references\", 0, 1) AS ?relation_order) "
-            "WHERE { "
-            "?document a legal:Act ; legal:title ?document_title ; "
-            "legal:hasProvision ?matched . "
-            "OPTIONAL { ?document legal:sourceURL ?source_url } "
-            "?matched a legal:Provision ; legal:sectionNumber ?matched_id ; "
-            "legal:sectionTitle ?matched_title ; legal:containsPassage ?matched_passage . "
-            "?matched_passage legal:text ?matched_text . "
-            "FILTER(CONTAINS(LCASE(STR(?matched_id)), LCASE(STR(?needle))) || "
-            "CONTAINS(LCASE(STR(?matched_title)), LCASE(STR(?needle))) || "
-            "CONTAINS(LCASE(STR(?matched_text)), LCASE(STR(?needle)))) "
-            f"{document_filter}"
-            "{ "
-            "?mention a legal:ReferenceMention ; legal:occursIn ?matched_passage ; "
-            "legal:referencesProvision ?related . "
-            "BIND(\"references\" AS ?related_via) "
-            "} UNION { "
-            "?mention a legal:ReferenceMention ; legal:referencesProvision ?matched ; "
-            "legal:occursIn ?related_passage . "
-            "?related legal:containsPassage ?related_passage . "
-            "BIND(\"referenced_by\" AS ?related_via) "
-            "} "
-            "?document legal:hasProvision ?related . "
-            "?related a legal:Provision ; legal:sectionNumber ?section_id ; "
-            "legal:sectionTitle ?title ; legal:containsPassage ?passage . "
-            "?passage legal:text ?text . "
-            "FILTER(?related != ?matched) "
-            "} ORDER BY STR(?document) ?section_order ?section_suffix ?relation_order",
-            bindings,
+        related_rows = []
+        matched_provisions = sorted(
+            {row["provision"] for row in direct_rows if row.get("provision")}
         )
+        if matched_provisions:
+            # VALUES holds IRIs read from the graph, never user-supplied text.
+            matched_values = " ".join(
+                URIRef(provision).n3() for provision in matched_provisions
+            )
+            related_rows = run_select(
+                self.graph,
+                QUERY_PREFIXES
+                + "SELECT DISTINCT ?document ?document_title ?source_url "
+                "?section_id ?title ?text ?related_via "
+                + _section_order("?section_id")
+                + '(IF(?related_via = "references", 0, 1) AS ?relation_order) '
+                "WHERE { "
+                f"VALUES ?matched {{ {matched_values} }} "
+                "?document legal:hasProvision ?matched . "
+                "OPTIONAL { ?document legal:title ?document_title } "
+                "OPTIONAL { ?document legal:sourceURL ?source_url } "
+                "?matched legal:containsPassage ?matched_passage . "
+                "{ ?mention legal:occursIn ?matched_passage ; "
+                "legal:referencesProvision ?related . "
+                'BIND("references" AS ?related_via) } '
+                "UNION { ?mention legal:referencesProvision ?matched ; "
+                "legal:occursIn ?related_passage . "
+                "?related legal:containsPassage ?related_passage . "
+                'BIND("referenced_by" AS ?related_via) } '
+                "?document legal:hasProvision ?related . "
+                "?related legal:sectionNumber ?section_id ; "
+                "legal:sectionTitle ?title ; legal:containsPassage ?passage . "
+                "?passage legal:text ?text . "
+                "FILTER(?related != ?matched) "
+                "} ORDER BY STR(?document) ?section_order ?section_suffix "
+                "?relation_order STR(?section_id)",
+            )
 
         direct_results = []
         direct_keys = set()
         for row in direct_rows:
             key = (_local_name(row["document"]), row["section_id"])
+            if key in direct_keys:
+                continue
             direct_keys.add(key)
             direct_results.append(
                 self._search_result(row, needle, "direct", None)

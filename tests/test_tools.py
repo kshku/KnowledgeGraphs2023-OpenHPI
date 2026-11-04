@@ -55,14 +55,19 @@ def test_tools_surface_document_ambiguity_and_identity(kg):
         ("example-act-a", "2A"),
         ("example-act-b", "2"),
         ("example-act-a", "53-O"),
+        ("example-act-b", "99"),
     }
     assert [match["match_type"] for match in matches] == [
         "direct",
         "direct",
         "direct",
         "related",
+        "related",
     ]
-    assert matches[-1]["related_via"] == "references"
+    assert [match["related_via"] for match in matches[3:]] == [
+        "references",
+        "referenced_by",
+    ]
 
     with pytest.raises(ValueError, match="document_id is required"):
         tools["kg_get_section"].invoke({"section_id": "2"})
