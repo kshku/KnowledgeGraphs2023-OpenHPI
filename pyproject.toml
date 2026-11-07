@@ -1,7 +1,7 @@
 [project]
-name = "knowledgegraphs2023-openhpi"
+name = "indian-law-kg"
 version = "0.1.0"
-description = "Add your description here"
+description = "A document-aware knowledge graph and LangChain agent for Indian legal Acts."
 readme = "README.md"
 authors = [
     { name = "kshku", email = "1211shree@gmail.com" }
@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-knowledgegraphs2023-openhpi = "knowledgegraphs2023_openhpi.main:main"
+indian-law-kg = "indian_law_kg.main:main"
 
 [project.optional-dependencies]
 openai = [

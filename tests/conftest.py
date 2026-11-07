@@ -2,8 +2,8 @@ import pytest
 from rdflib import Graph, Literal, Namespace
 from rdflib.namespace import OWL, RDF, RDFS, XSD
 
-from knowledgegraphs2023_openhpi.config import ONTOLOGY_IRI
-from knowledgegraphs2023_openhpi.kg import KnowledgeGraph
+from indian_law_kg.config import ONTOLOGY_IRI
+from indian_law_kg.kg import KnowledgeGraph
 
 LEGAL = Namespace(f"{ONTOLOGY_IRI}#")
 

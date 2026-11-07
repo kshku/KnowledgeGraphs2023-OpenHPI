@@ -638,7 +638,7 @@ wheels = [
 ]
 
 [[package]]
-name = "knowledgegraphs2023-openhpi"
+name = "indian-law-kg"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

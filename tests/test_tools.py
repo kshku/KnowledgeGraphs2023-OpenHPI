@@ -1,6 +1,6 @@
 import pytest
 
-from knowledgegraphs2023_openhpi.agent.tools import build_tools
+from indian_law_kg.agent.tools import build_tools
 
 
 def test_tool_names_and_calls(kg):

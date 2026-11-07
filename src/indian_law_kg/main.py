@@ -14,7 +14,7 @@ from .pdf_utils import extract_pdf
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="knowledgegraphs2023-openhpi",
+        prog="indian-law-kg",
         description="Legal Acts knowledge graph and agent",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)

@@ -1,4 +1,4 @@
-# KnowledgeGraphs2023-OpenHPI
+# Indian Law KG
 
 A document-aware legal knowledge graph and LangChain agent for Indian Acts.
 The ontology is general-purpose; the documents and provisions are instances
@@ -47,14 +47,14 @@ manifest.
 
 ```bash
 # Extract and parse all manifest documents
-uv run python -m knowledgegraphs2023_openhpi extract
+uv run python -m indian_law_kg extract
 
 # Or just one document
-uv run python -m knowledgegraphs2023_openhpi extract \
+uv run python -m indian_law_kg extract \
   --document competition-act-2002
 
 # Combine all parsed documents into one RDF graph
-uv run python -m knowledgegraphs2023_openhpi build
+uv run python -m indian_law_kg build
 
 # Check parsed data and document-scoped RDF links/counts
 uv run python scripts/validate.py
@@ -100,12 +100,12 @@ Section queries require a document ID when more than one Act is loaded.
 `find` can search all documents or be filtered to one Act:
 
 ```bash
-uv run python -m knowledgegraphs2023_openhpi query \
+uv run python -m indian_law_kg query \
   --document consumer-protection-act-2019 --section 2
-uv run python -m knowledgegraphs2023_openhpi query \
+uv run python -m indian_law_kg query \
   --document competition-act-2002 --section 53-O
-uv run python -m knowledgegraphs2023_openhpi find "refund"
-uv run python -m knowledgegraphs2023_openhpi find "competition" \
+uv run python -m indian_law_kg find "refund"
+uv run python -m indian_law_kg find "competition" \
   --document competition-act-2002
 ```
 
@@ -118,12 +118,16 @@ already present in the graph; it does not infer synonyms or use embeddings.
 
 ## Agent
 
-The agent in `src/knowledgegraphs2023_openhpi/agent/` uses typed SPARQL-backed
+The agent in `src/indian_law_kg/agent/` uses typed SPARQL-backed
 tools including `kg_list_documents`, `kg_list_sections`, `kg_get_section`,
 `kg_find_sections`, and reference tools, plus read-only `kg_sparql`. It discovers
 Act IDs, scopes section queries to the right Act, grounds answers in graph
 results, and cites the Act title and section ID (plus source URL when present).
 Before SPARQL, it calls `kg_get_schema` to learn the available ontology terms.
+
+The agent is built into the CLI; it is not a separate service or subcommand.
+`ask` answers one question, while `chat` starts an interactive session with
+streaming output and tool events.
 
 Set up the model in `.env` (see `.env.example`). For the OpenRouter provider,
 set `KG_MODEL_PROVIDER=openrouter`, `KG_MODEL_NAME` to an OpenRouter model ID,
@@ -131,10 +135,12 @@ and `OPENROUTER_API_KEY`, then install its optional integration:
 
 ```bash
 uv sync --extra openrouter
-uv run python -m knowledgegraphs2023_openhpi ask \
+uv run indian-law-kg ask \
   "What are the rights of a consumer under the Consumer Protection Act?"
-uv run python -m knowledgegraphs2023_openhpi chat
+uv run indian-law-kg chat
 ```
+
+The module form works too: `uv run python -m indian_law_kg ask "..."`.
 
 `KG_MODEL_PROVIDER` and `KG_MODEL_NAME` select the model. Provider extras are
 `openai`, `ollama`, `gemini`, `anthropic`, and `openrouter`.

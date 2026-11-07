@@ -2,9 +2,9 @@ import pytest
 from rdflib import Literal, Namespace
 from rdflib.namespace import RDF, XSD
 
-from knowledgegraphs2023_openhpi import config
-from knowledgegraphs2023_openhpi.documents import Document
-from knowledgegraphs2023_openhpi.ontology_generator import generate_ontology
+from indian_law_kg import config
+from indian_law_kg.documents import Document
+from indian_law_kg.ontology_generator import generate_ontology
 
 LEGAL = Namespace(f"{config.ONTOLOGY_IRI}#")
 

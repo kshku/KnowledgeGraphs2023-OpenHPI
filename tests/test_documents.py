@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from knowledgegraphs2023_openhpi.documents import (
+from indian_law_kg.documents import (
     Document,
     get_document,
     load_documents,
