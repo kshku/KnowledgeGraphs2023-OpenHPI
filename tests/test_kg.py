@@ -142,7 +142,7 @@ def test_runtime_kg_retrieval_uses_sparql_not_graph_traversal(
 
 def test_missing_schema_is_reported(monkeypatch, tmp_path, kg):
     monkeypatch.setattr(
-        "knowledgegraphs2023_openhpi.kg.config.ONTOLOGY_SCHEMA_PATH",
+        "indian_law_kg.kg.config.ONTOLOGY_SCHEMA_PATH",
         tmp_path / "missing.rdf",
     )
 

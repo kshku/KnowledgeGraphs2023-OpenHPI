@@ -2,11 +2,11 @@ from time import perf_counter
 
 from rdflib import Namespace
 
-from knowledgegraphs2023_openhpi import config
-from knowledgegraphs2023_openhpi.documents import Document
-from knowledgegraphs2023_openhpi.kg import KnowledgeGraph
-from knowledgegraphs2023_openhpi.ontology_generator import generate_ontology
-from knowledgegraphs2023_openhpi.validation import (
+from indian_law_kg import config
+from indian_law_kg.documents import Document
+from indian_law_kg.kg import KnowledgeGraph
+from indian_law_kg.ontology_generator import generate_ontology
+from indian_law_kg.validation import (
     validate_document,
     validate_parsed_sections,
 )

@@ -1,7 +1,7 @@
 import pytest
 from rdflib import Graph, Literal, Namespace
 
-from knowledgegraphs2023_openhpi.sparql import (
+from indian_law_kg.sparql import (
     run_ask,
     run_query,
     run_select,

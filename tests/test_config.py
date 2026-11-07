@@ -1,4 +1,4 @@
-from knowledgegraphs2023_openhpi import config
+from indian_law_kg import config
 
 
 def test_paths_and_constants():

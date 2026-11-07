@@ -3,8 +3,8 @@ import json
 import pytest
 import pymupdf
 
-from knowledgegraphs2023_openhpi.documents import load_documents
-from knowledgegraphs2023_openhpi.parser import parse, parse_sections
+from indian_law_kg.documents import load_documents
+from indian_law_kg.parser import parse, parse_sections
 
 
 def records(*pages):

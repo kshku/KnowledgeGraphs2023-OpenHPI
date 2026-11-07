@@ -1,4 +1,4 @@
-from knowledgegraphs2023_openhpi import agent
+from indian_law_kg import agent
 
 
 def test_build_agent_uses_injected_model(monkeypatch, kg):

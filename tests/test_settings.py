@@ -1,6 +1,6 @@
 import os
 
-from knowledgegraphs2023_openhpi.settings import load_provider_environment
+from indian_law_kg.settings import load_provider_environment
 
 
 def test_provider_key_from_dotenv_is_exported_for_sdk(monkeypatch, tmp_path):

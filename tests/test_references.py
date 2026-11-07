@@ -1,4 +1,4 @@
-from knowledgegraphs2023_openhpi.references import (
+from indian_law_kg.references import (
     Reference,
     extract_references,
     resolution_status,

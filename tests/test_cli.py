@@ -3,10 +3,10 @@ import json
 import pytest
 from rdflib import Graph
 
-from knowledgegraphs2023_openhpi import config
-from knowledgegraphs2023_openhpi.documents import Document
-from knowledgegraphs2023_openhpi import main
-from knowledgegraphs2023_openhpi.main import build_parser
+from indian_law_kg import config
+from indian_law_kg.documents import Document
+from indian_law_kg import main
+from indian_law_kg.main import build_parser
 
 
 def test_parser_has_subcommands():
